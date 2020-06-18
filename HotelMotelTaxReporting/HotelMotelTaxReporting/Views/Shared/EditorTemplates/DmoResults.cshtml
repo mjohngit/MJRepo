@@ -1,0 +1,7 @@
+﻿@model DmoResults
+
+<div style="padding-bottom: 5px;">
+    @Html.HiddenFor(m => m.DmoContractId)
+    @Html.TextBoxFor(m => m.DmoEntity, new { style = "width: 520px;" })<p />
+    @Html.ValidationMessageFor(m => m.DmoEntity)
+</div>

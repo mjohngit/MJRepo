@@ -1,0 +1,212 @@
+﻿@model IEnumerable<HotelMotel.Business.Models.Form3>
+
+@{
+    ViewBag.Title = "Form 3";
+}
+
+<p></p>
+
+<div class="row" style="margin-bottom: 20px;">
+    <div style="width: 600px; margin: 2px 0 30px 170px; text-align: justify;">
+        <section id="Form3">
+            @using (@Html.BeginForm("Form3", "Hm", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @*@using (Ajax.BeginForm(" form2", "Hm" , null, formmethod.post)) {*@
+                @Html.AntiForgeryToken()
+                <div class="container">
+                    <div style="border: 1px solid; width: 750px;">
+                        <div class="text-center">
+                            <h2 style="text-decoration: underline; color: #E87D3B; text-align: center;"> Hotel-Motel Tax Report System</h2>
+                            <p>
+                                <h4>@Session["LoggedCityName"] (@Session["LoginId"])</h4>
+                            </p>
+                        </div> <hr />
+                        <div class="well" id="divProjContractor" style="width: 700px; margin: 0 auto; margin-top: -5px; margin-bottom: 10px;">
+                            <div style="color: maroon; padding-top: -20px; width: 660px; margin: 0 auto;">
+                                <div style="margin: 0 auto; text-align: center; border: #369 1px solid; height: 40px;">@{Html.RenderPartial("Partials/_Menu");}</div>
+                                <div style="font-size: 20px; text-align: center; padding-top: 10px;">
+                                    Section III: Project Contractor Information Schedule <br />
+                                    <span style="font-size: 17px; font-weight: bold;">And Tourism Product Development List (if 51(b))</span> - @ViewBag.sYear
+                                </div>
+                                @*@using (Html.BeginForm("ArStart", "home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {*@
+
+                                <input type="hidden" name="hidDocCount" id="hidDocCount" value="@ViewBag.DocCount" />
+
+                                @using (Ajax.BeginForm("Form3", "Hm",
+                                        new AjaxOptions
+                                        {
+                                            HttpMethod = "POST",
+                                            UpdateTargetId = "divUpload",
+                                            InsertionMode = InsertionMode.Replace,
+                                            Confirm = "Are you sure you want to delete this file?"
+                                        },
+                                        new
+                                        {
+                                            enctype = "multipart/form-data"
+                                        }))
+                                {
+                                    <div id="divUpload" style="margin: 15px 0 50px 5px; padding: 10px; clear:both; border: 1px solid steelblue">
+                                        <div>
+                                            A PCIS form is required for all Tax Authorizations with a Tax Rate <strong><u>over</u></strong> 3%. If you are under Tax Authorization 51(b), your uploaded PCIS form should also identify the name of your current TPD Project.  
+                                            The PCIS document for uploading with this report should have been prepared by the entity contracted to promote Tourism, Conventions, and Trade Shows for your government.<p></p>
+                                            Upload your completed PCIS form HERE.  It may be uploaded in <strong>PDF, Excel, Word, or text</strong> format.<p></p>
+                                        </div>
+                                        <div id="msgFileNotNeeded" style="font-size: 16px; font-weight: bold; color: navy; margin: 5px 5px 5px 5px; border: 1px solid; vertical-align: middle;">&nbsp;You are not required to upload a file, however you can optionally upload one.<p></p></div>
+                                        @if (!Convert.ToBoolean(Session["CertificationComplete"]))
+                                        {
+                                            <label class="control-label">Select File</label>
+                                            <input type="file" name="files" id="updFile" />
+                                            <br />
+                                            @*<input type="submit" name="updSubmit" id="updSubmit" class="btn btn-info glyphicon-align-left" style="font-size: 11px; font-weight: bold" value="Upload Document" /> &nbsp; &nbsp;*@
+                                            <button type="submit" id="updSubmit" class="btn btn-primary" style="font-size: 11px; font-weight: bold;" name="updSubmit" value="Upload Document">
+                                                <span class="glyphicon glyphicon-upload"></span>&nbsp;Upload Document
+                                            </button>
+                                            @:&nbsp;&nbsp;<br/>
+                                            if (ViewBag.clrMsg == "G")
+                                            {
+                                                <span style="color: green; font-weight: bold; font-size: 12px">@ViewBag.Message</span>
+                                            }
+                                            else if (ViewBag.clrMsg == "R")
+                                            {
+                                                <span style="color: firebrick; font-weight: bold; font-size: 11px">@ViewBag.Message</span>
+                                            }
+                                            else if (ViewBag.clrMsg == "BR")
+                                            {
+                                                <span style="color: sandybrown; font-weight: bold; font-size: 11px">@ViewBag.Message</span>
+                                            }
+
+                                            <br/>
+                                            if (ViewBag.DocExists)
+                                            {
+                                                <div style="float: left; margin-top: 25px;">
+                                                    <table class="table table-bordered table-striped">
+                                                        <tr style="width: 40%;">
+                                                            <th>
+                                                                File Name
+                                                            </th>
+                                                            <th style="width: 16%;">
+                                                                Upload Date
+                                                            </th>
+                                                            <th>
+                                                            </th>
+                                                        </tr>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                        <form name="@item.PcisFrmName" method="post">
+                                                            <tr>
+                                                                <td>
+                                                                    @Html.HtmlLink(item.PcisDocUrl, item.PcisDocName, new { target = "_blank", style = "font-size: 14px; font-weight: bold;" })
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(x => item.PcisDocDt)
+                                                                    @Html.HiddenFor(x => item.PcisDocId)
+                                                                    @Html.HiddenFor(x => item.PcisDocName)
+                                                                    @Html.HiddenFor(x => item.PcisFrmName)
+                                                                </td>
+
+                                                                <td>
+                                                                    <button type="submit" id="@item.PcisFrmName" name="@item.PcisFrmName" class="btn btn-xs btn-danger" style="font-weight: bold; font-size: 11px;" value="Delete">
+                                                                        <span class="glyphicon glyphicon-trash"></span>&nbsp;Delete
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </form>
+                                                        }</table>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <label style="font-size: 15px; font-weight: bold; color: maroon;">No file uploaded for @TempData["TaxYear"]</label>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (ViewBag.DocExists)
+                                            {
+                                            <table class="table table-bordered table-striped">
+                                                <tr>
+                                                    <th style="width: 40%;">
+                                                        File Name
+                                                    </th>
+                                                    <th style="width: 14%;">
+                                                        Upload Date
+                                                    </th>
+                                                </tr>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.HtmlLink(item.PcisDocUrl, item.PcisDocName, new { target = "_blank", style = "font-size: 14px; font-weight: bold;" })
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(x => item.PcisDocDt)
+                                                            @Html.HiddenFor(x => item.PcisDocId)
+                                                            @Html.HiddenFor(x => item.PcisDocName)
+                                                            @Html.HiddenFor(x => item.PcisFrmName)
+                                                        </td>
+                                                    </tr>  
+                                                    }
+                                                </table>
+                                                }
+                                            else
+                                            {
+                                                <label style="font-size: 15px; font-weight: bold; color: maroon;">No file uploaded for the period</label>
+                                            }
+                                        }
+                                    </div>
+                                    <table>
+                                    <tr>
+                                        <td style="width: 50%" nowrap="nowrap">
+                                            @*@Html.HtmlLink("Mainmenu", "Main Menu", new { style = "font-size: 18px; color: green; margin-left: 5px;" })*@
+                                            @*<input type="button" class="btn btn-info" style="width: 130px; font-weight: bold;" value="Main Menu" onclick="location.href='@Url.Action("Mainmenu", "Hm")'" />*@
+                                            <button type="button" class="btn btn-info" style="font-weight: bold;" value="Main Menu" onclick="location.href='@Url.Action("Mainmenu", "Hm", new { syear = @ViewBag.sYear })'">
+                                                <span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Main Menu
+                                            </button>
+                                        </td>
+                                        <td style="width: 23%" nowrap="nowrap">
+                                            @*<input type="button" class="btn btn-primary" style="width: 130px; font-weight: bold;" value="Log Out" onclick="location.href='@Url.Action("LogOff", "Hm")'" />*@
+                                        </td>
+                                        @if (!Convert.ToBoolean(Session["CertificationComplete"]))
+                                        {
+                                            @*<td style="width: 23%" nowrap="nowrap">
+                                                    &nbsp;&nbsp;<input type="Submit" class="btn btn-primary" style="width: 150px; font-weight: bold;" id="btnSubmit" name="btnSubmit" value="Save Section III" />&nbsp;&nbsp;
+                                                </td>*@
+                                            <td>
+                                                <button type="submit" id="btnSubmit" class="btn btn-primary" style="font-weight: bold;" name="btnSubmit" value="Save Section III">
+                                                    <span class="glyphicon glyphicon-save"></span>&nbsp;Save Section III
+                                                </button>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="width: 25%" nowrap="nowrap">
+                                                <input type="button" class="btn btn-info" style="width: 215px; font-weight: bold;" title="Section III" value="Printable Version - Section III" id="btnForm3Print" name="btnForm3Print" onclick="location.href='@Url.Action("Form3", "Print")'" />
+                                            </td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="text-align: center; font-weight: bold; font-size: 15px;">
+                                            <br /> If you have questions, send an email to:  <a href="mailto:dca.research@dca.ga.gov" style="color: green">dca.research@dca.ga.gov</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                }
+                             
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height: 7px;">
+                        @*@Html.HiddenFor(s => s.PcisDocNeeded)*@
+                        @Html.Hidden("hidPcisDocNeeded", (object)ViewBag.NeedDoc)
+                        @Html.Hidden("hidCertificationComplete", Session["CertificationComplete"])
+                    </div>
+                </div>
+            }
+        </section>
+        @Scripts.Render("~/bundles/jquery")
+        <script type="text/javascript" src="~/Scripts/app/HMCommon.js"></script>
+        <script src="~/Scripts/prettify.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/Form3.js"></script>
+    </div>
+</div>

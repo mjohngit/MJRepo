@@ -1,0 +1,54 @@
+﻿@using System.Web.UI.WebControls
+@using Microsoft.Ajax.Utilities
+@using Ini
+@using MVCLibraries
+
+@{
+    const string strMvcfile = "C:\\CMapps\\Config\\mvcmasterkeys.ini";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1">
+    <title>@ViewBag.Title - Hotel-Motel Tax Reporting</title>
+    <link href="http://www.dca.ga.gov/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap-responsive.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/jquery-ui-1.10.4.custom.min.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <link href="@Url.Content("~/Content/foundation.custom.download.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/prettify.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/DCACommon/styles/main/dca_main_alt.css" charset="UTF-8" />
+    <link href="~/Content/authorities.css" rel="stylesheet" type="text/css" />
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @{
+        var sourceFile = new IniFile(strMvcfile);
+    }
+    @RenderSection("featured", required: false)
+    <div id="mvcbody-container">
+        @Html.PageHeaderNFooter(sourceFile.IniReadValue("mvccommon", "pageheadersrc"))
+        <div id="mvcmainctnr2013">
+            @RenderBody()
+        </div>
+        @Html.PageHeaderNFooter(sourceFile.IniReadValue("mvccommon", "pagefootersrc"))
+    </div>
+    
+    <!-- /.container -->
+
+    <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")" type="text/javascript"> </script>
+    <script src="@Url.Content("~/Scripts/bootstrap.3.3.7.min.js")" type="text/javascript"> </script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.12.0.min.js")" type="text/javascript"> </script>
+    <script src="@Url.Content("~/Scripts/jquery.formatCurrency-1.4.0.min.js")" type="text/javascript"> </script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"> </script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"> </script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/prettify.js")" type="text/javascript"> </script>
+    <script src="@Url.Content("~/Scripts/gridmvc.min.js")" type="text/javascript"> </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

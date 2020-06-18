@@ -1,0 +1,63 @@
+﻿@model HotelMotel.Business.ViewModels.FormBViewmodel
+
+
+<div style="font-size: 12px; width: 525px; text-align: justify;">
+    For the amounts expended through a contract with a Destination Marketing Organization (Chamber of Commerce, Convention & Visitor’s Bureau, Local Authority, etc.) this report year, enter the full name of the organization(s) below:
+
+    <p style="font-size: 14px; font-weight: bolder; color: crimson;">
+    </p>
+</div>
+@if (!Convert.ToBoolean(Session["CertificationComplete"]))
+{
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th style="width: 80%; font-size: 15px; text-align: center; color: navy; background-color: #FAEDD1; "> Name of Organization</th>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.EditorFor(x => x.DmoResultses)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="width: 70%; text-align: right; background-color: snow;" colspan="2" nowrap="nowrap">
+                @*<span style="float: left;"><input type="Submit" class="btn btn-info" style="width: 110px; font-weight: bold;" id="btnAddDmoContract" name="btnAddDmoContract" value="Add new row " /></span>*@
+                <span style="float: left; text-align: center; width: 110px; font-size: 15px; font-weight: bold; border: 1px solid blueviolet;">
+                    @Ajax.ActionLink("Add new rows", "_AddPartialNewContractDmo",
+                            new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                                InsertionMode = InsertionMode.Replace,
+                                UpdateTargetId = "divContracts"
+                            })
+
+                </span>
+                @*<input type="button" class="btn btn-info" style="width: 180px; font-weight: bold;" id="btnSaveDmo" name="btnSaveDmo" value="Save DMO Section" onclick="DoStuff('@Url.Action("SavePartialDmoResults", "hm")');" />*@
+                @*<span style="float: right; text-align: center; border: 1px solid blueviolet;" onclick="DoStuff('@Url.Action("SavePartialDmoResults", "hm")');">
+                        @Ajax.ActionLink("Save DMO Contracts", "SavePartialDmoResults",
+                            new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                                InsertionMode = InsertionMode.Replace,
+                                UpdateTargetId = "divContracts"
+                            })
+                    </span>*@
+            </td>
+        </tr>
+    </table>
+}
+else
+{
+    <table class="table table-bordered table-striped span7">
+        <thead>
+            <tr>
+                <th style="width: 80%; font-size: 15px; text-align: center; color: navy; background-color: #FCDE7B;"> Name of Organization</th>
+            </tr>
+        </thead>
+        <tbody>
+            @Html.DisplayFor(x => x.DmoResultses)
+        </tbody>
+</table>
+}
+

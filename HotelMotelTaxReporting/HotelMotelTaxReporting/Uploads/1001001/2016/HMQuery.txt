@@ -1,0 +1,23 @@
+/****** Script for SelectTopNRows command from SSMS  ******/
+SELECT *
+  FROM [HotelMotelTax].[dbo].[HMT_Certifications]
+  WHERE CICOID = '1001001' AND Fiscal_Year=2016
+  
+  UPDATE dbo.HMT_Certifications SET 
+  OrdinanceCorrect=1, P1_Complete=1, P2_Complete=0, P3_Complete=0, Cert_Complete=0
+  WHERE CICOID = '1001001' AND Fiscal_Year=2016
+
+UPDATE dbo.HMT_Certifications 
+SET OrdinanceCorrect=0, P1_Complete = 0 
+WHERE CICOID = '1001001' AND Fiscal_Year=2016
+
+dbo.pr_Get_PurposeAmts '1001001', 2016, '3-5'
+dbo.pr_Get_Contracts_DMO '1001001', 2016, '3-5'
+dbo.pr_Get_Contracts_Park '1001001', 2016, '3-5'
+SELECT * FROM dbo.HMT_Purpose_Amounts  WHERE CICOID='1001001' AND Fiscal_Year=2016
+DELETE dbo.HMT_Purpose_Amounts  WHERE CICOID='1001001' AND Fiscal_Year=2016
+DELETE dbo.HMT_Contracts WHERE CICOID='1001001' AND Fiscal_Year=2016 
+
+TRUNCATE TABLE HMT_Contracts
+
+[dbo].[pr_Update_P2] '1001001', '2016', '3-5', 1

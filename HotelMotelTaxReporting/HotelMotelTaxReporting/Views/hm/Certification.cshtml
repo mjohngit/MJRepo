@@ -1,0 +1,194 @@
+﻿@model Certification
+@{
+    ViewBag.Title = "Certification";
+}
+<p></p>
+<div class="row" style="margin-bottom: 20px;">
+    <div style="width: 600px; margin: 2px 0 30px 170px; text-align: justify;">
+        <section id="FormI">
+            @if (!Convert.ToBoolean(Session["CertificationComplete"]))
+            {
+                using (Html.BeginForm("Certification", "hm", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="container">
+                        <div style="border: 1px solid; width: 700px;">
+                            <div class="text-center">
+                                <h2 style="text-decoration: underline; color: #E87D3B; text-align: center;"> Hotel-Motel Tax Report System</h2>
+                                <p>
+                                    <h4>@Session["LoggedCityName"] (@Session["LoginId"])</h4>
+                                </p>
+                            </div> <hr />
+                            <div class="well" style="width: 650px; margin: 0 auto; margin-top: -5px;">
+                                <div style="color: maroon; padding-top: -20px; width: 595px; margin: 0 auto;">
+                                    <div style="margin: 0 auto; text-align: center; border: #369 1px solid; height: 40px;">@{Html.RenderPartial("Partials/_Menu");}</div>
+                                    <div style="font-size: 20px; text-align: center; padding-top: 10px;">Section IV: Report Certification  - @ViewBag.sYear</div><p></p>
+                                    <div style="font-size: 12px; width: 565px; text-align: justify;">
+                                        This is to certify that, to the best of my knowledge, the information provided herein accurately represents the revenues and expenditures of Hotel-Motel Taxes collected and expended in accordance with the requirements specified in the specific authorization paragraph of O.C.G.A.48-13-51 adopted by this local government for imposing the tax.
+                                        <p></p>
+                                        <p>
+                                            <div style="width: 60%; border: 1px solid steelblue; -ms-border-radius: 5px; border-radius: 5px; margin: 0 auto; padding: 4px; text-align: center;">
+                                                <span style="font-size: 17px; font-weight: bold; color:firebrick;">Do NOT type in ALL CAPS!</span><br />
+                                                <span style="font-size: 15px; font-weight: bold; color:green">All sections have been completed. Report is ready for submission.</span>
+                                            </div><br />
+
+
+                                            <div style="text-align: left;" class="form-horizontal span6">
+                                                <fieldset>
+                                                    <!-- Form Name -->
+                                                    <legend style="color: navy; font-size: 18px; text-decoration: underline;">CEO Details</legend>
+
+                                                    <!-- Text input-->
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Name of Chief Elected Official:</label>
+                                                        <div class="col-md-6">
+                                                            @Html.TextBoxFor(x => x.CeoName, new { @class = "form-control col-lg-2", placeholder = "Name of CEO" })
+                                                            @*<input id="textinput" name="textinput" type="text" placeholder="Name of CEO" class="form-control col-lg-2">*@
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Text input-->
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Title of Chief Elected Official:</label>
+                                                        <div class="col-md-6">
+                                                            @*<input id="textinput" name="textinput" type="text" placeholder="Title of CEO" class="form-control col-lg-2">*@
+                                                            @Html.TextBoxFor(x => x.CeoTitle, new { @class = "form-control col-lg-4", placeholder = "Title of CEO" })
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                <div style="height: 15px;"></div>
+                                                <fieldset>
+                                                    <!-- Form Name -->
+                                                    <legend style="color: navy; font-size: 18px; text-decoration: underline;">Details of person completing this report:</legend>
+
+                                                    <!-- Text input-->
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Name of person completing this report:</label>
+                                                        <div class="col-md-6">
+                                                            @Html.TextBoxFor(x => x.PreparerName, new { @class = "form-control col-lg-2", placeholder = "Name of Preparer" })
+                                                            @*<input id="textinput" name="textinput" type="text" placeholder="Name of person" class="form-control col-lg-2">*@
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Text input-->
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Title of  person completing this report:</label>
+                                                        <div class="col-md-6">
+                                                            @Html.TextBoxFor(x => x.PreparerTitle, new { @class = "form-control col-lg-2", placeholder = "Job title of Preparer" })
+                                                            @*<input id="textinput" name="textinput" type="text" placeholder="Title of  person completing this report" class="form-control col-lg-2">*@
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Email:</label>
+                                                        <div class="col-md-6">
+                                                            @* <input id="textinput" name="textinput" type="text" placeholder="CEO Email" class="form-control col-lg-2">*@
+                                                            @Html.TextBoxFor(x => x.PreparerEmail, new { @class = "form-control col-lg-2", placeholder = "Preparer email" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Telephone Number:</label>
+                                                        <div class="col-md-4">
+                                                            @*<input id="textinput" name="textinput" type="text" placeholder="CEO Phone #" class="form-control col-md-2">*@
+                                                            @Html.TextBoxFor(x => x.PreparerPhone, new { @class = "form-control col-lg-2", placeholder = "Preparer phone#" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Date of report:</label>
+                                                        <div class="col-md-4">
+                                                            @*<input id="textinput" name="textinput" type="text" placeholder="Report date" class="form-control col-md-2">*@
+                                                            @Html.TextBoxFor(x => x.DateCertified, "{0:MM/dd/yyyy}", new { @class = "form-control col-md-2", @readonly=true})
+                                                       </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                    </div>
+                                    <div style="font-size: 12px; width: 565px; text-align: justify;">
+                                        Further, we have provided as an integral part of this report an accounting of the Hotel-Motel Tax revenues expended for the purpose of promoting tourism, conventions, and trade shows or any other related purpose on the Project Contractor Information Schedule (PCIS) in Section III or its attachment.
+                                    </div>
+                                    <div style="height: 15px;"></div>
+                                    <div style="text-align: left;" class="form-horizontal">
+                                        <fieldset>
+                                            <!-- Form Name -->
+                                            <legend style="color: navy; font-size: 18px; text-decoration: underline;">Details of person providing figures for the PCIS figures:</legend>
+
+                                            <!-- Text input-->
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Name of person providing figures for the PCIS:</label>
+                                                <div class="col-md-6">
+                                                    @Html.TextBoxFor(x => x.PcisProviderName, new { @class = "form-control col-lg-2", placeholder = "Name of Provider" })
+                                                    @*<input id="textinput" name="textinput" type="text" placeholder="Name of person" class="form-control col-lg-2">*@
+                                                </div>
+                                            </div>
+
+                                            <!-- Text input-->
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Title of Person providing PCIS figures:</label>
+                                                <div class="col-md-6">
+                                                    @*<input id="textinput" name="textinput" type="text" placeholder="Title of CEO" class="form-control col-lg-2">*@
+                                                    @Html.TextBoxFor(x => x.PcisProviderTitle, new { @class = "form-control col-lg-2", placeholder = "Title of PCIS provider" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Email:</label>
+                                                <div class="col-md-6">
+                                                    @*<input id="textinput" name="textinput" type="text" placeholder="CEO Email" class="form-control col-lg-2">*@
+                                                    @Html.TextBoxFor(x => x.PcisProviderEmail, new { @class = "form-control col-lg-2", placeholder = "PCIS provider email" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Telephone Number:</label>
+                                                <div class="col-md-4">
+                                                    @*<input id="textinput" name="textinput" type="text" placeholder="CEO Phone #" class="form-control col-md-2">*@
+                                                    @Html.TextBoxFor(x => x.PcisProviderPhone, new { @class = "form-control col-lg-2", placeholder = "PCIS provider phone" })
+                                                </div>
+                                            </div>
+                                            <div style="height: 15px;"></div>
+                                            <div style="width: 90%">
+                                                <span style="float: left">
+                                                    @*<input type="button" class="btn btn-info" style="width: 130px; font-weight: bold;" value="Main Menu" id="btnMainmenu" onclick="location.href='@Url.Action("Mainmenu", "Hm")'" />*@
+                                                    <button type="button" class="btn btn-info" style="font-weight: bold;" value="Main Menu" onclick="location.href='@Url.Action("Mainmenu", "Hm")'">
+                                                        <span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Main Menu
+                                                    </button>
+                                                </span>
+                                                <span style="float: right">
+                                                    @if (!Convert.ToBoolean(Session["CertificationComplete"]))
+                                                    {
+                                                        @*<input type="Submit" class="btn btn-primary span3 input-large" style="font-weight: bolder; font-size: 15px;" id="btnSubmit" name="btnSubmit" value="Submit Report  @ViewBag.sYear" />*@
+
+                                                        <button type="submit" class="btn btn-primary span3 input-large" style="font-weight: bold;" id="btnSubmit" name="btnSubmit" value="Submit Report  @ViewBag.sYear">
+                                                            <span class="glyphicon glyphicon-save"></span>&nbsp;&nbsp;Submit Report  @ViewBag.sYear
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="button" class="btn btn-info" style="width:240px; font-weight: bold;" value="Printable Version - Certification" id="btnCertPrint" name="btnCertPrint" onclick="location.href='@Url.Action("Certification", "Print")'" />
+                                                    }
+                                                </span>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <p></p><br />
+                        </div>
+                        <div style="height: 7px;">
+                            @Html.HiddenFor(x => x.Form3DocUploaded)
+                            @Html.HiddenFor(x => x.CertComplete, new { id = "hidCertComplete" })
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                {Html.RenderPartial("Partials/_Certification");}
+            }
+        </section>
+        @Scripts.Render("~/bundles/jquery")
+        <script src="~/Scripts/app/Cert.js"></script>
+        <script type="text/javascript" src="~/Scripts/app/HMCommon.js"></script>
+        <script src="~/Scripts/mvcfoolproof.unobtrusive.min.js"></script>
+        <script src="~/Scripts/MvcFoolproofJQueryValidation.min.js"></script>
+        <script src="~/Scripts/MvcFoolproofValidation.min.js"></script>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+﻿@model HotelMotel.Business.ViewModels.FormBViewmodel
+
+@{
+    ViewBag.Title = "Form 2";
+}
+
+<p></p>
+<div class="row" style="margin-bottom: 20px;">
+    <div style="width: 600px; margin: 2px 0 30px 170px; text-align: justify;">
+        <section id="FormI">
+            @using (@Html.BeginForm("Form2", "hm", FormMethod.Post))
+            {
+                @* @using (Ajax.BeginForm("Form2", "hm", null, FormMethod.Post)) {*@
+                @Html.AntiForgeryToken()
+
+                <div class="container">
+                    <div style="border: 1px solid; width: 700px;">
+                        <div class="text-center">
+                            <h2 style="text-decoration: underline; color: #E87D3B; text-align: center;"> Hotel-Motel Tax Report System</h2>
+                            <p>
+                                <h4>@Session["LoggedCityName"] (@Session["LoginId"])</h4>
+                            </p>
+                        </div> <hr />
+                        <div class="well" id="dPayments" name="dPayments" style="width: 650px; margin: 0 auto; margin-top: -5px;">
+                            <div style="color: maroon; padding-top: -20px; width: 550px; margin: 0 auto;">
+                                <div style="margin: 0 auto; text-align: center; border: #369 1px solid; height: 40px;">@{Html.RenderPartial("Partials/_Menu");}</div>
+                                <div style="font-size: 20px; text-align: center; padding-top: 10px;">Section II: Tax Revenues Received - @ViewBag.sYear</div><p></p>
+                                <div style="font-size: 12px; width: 525px; text-align: justify;">
+                                    Based on your government's specific legal Tax Authorization Paragraph from O.C.G.A. 48-13-51 as selected in Section I, enter below the expenditures made this report year in each category displayed below.
+
+                                    <p style="font-size: 14px; font-weight: bolder; color: crimson;">
+
+                                    </p>
+                                </div>
+
+                                <div style="margin-top: 20px; width: 98%;">
+                                    <p style="font-size: 17px; font-weight: normal; margin: 0 auto; text-align: center;">Enter the amount expended for each of the following</p><br />
+                                    <div id="divPurposeAmounts">
+                                        @{Html.RenderPartial("Partials/Print/_PurposeAmountsprint", Model);}
+                                    </div>
+                                    <div id="divContracts">
+                                        @*@Html.Partial("Partials/_ContractDmo", Model);*@
+                                        @{Html.RenderPartial("Partials/Print//_ContractDmoprint", Model);}
+                                        @*@Html.EditorFor(x => x.DmoResultses)*@
+                                    </div>
+                                    <div style="height: 10px;"></div>
+                                    <div id="divParks">
+                                        @{Html.RenderPartial("Partials/Print/_ContractParksprint", Model);}
+                                    </div>
+
+
+                                    <table>
+                                        <tr>
+                                            <td style="width: 50%" nowrap="nowrap">
+                                                @* @Html.HtmlLink("Mainmenu", "Main Menu", new {style="font-size: 18px;"})*@
+                                                @*<input type="button" class="btn btn-info" style="width: 130px; font-weight: bold;" value="Main Menu" id="btnMainmenu" onclick="location.href='@Url.Action("Mainmenu", "Hm")'" />*@
+                                                <button type="button" class="btn btn-info" style="font-weight: bold;" value="Main Menu" onclick="location.href='@Url.Action("Mainmenu", "Hm")'">
+                                                    <span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Main Menu
+                                                </button>
+                                            </td>
+                                            <td style="width: 25%" nowrap="nowrap">
+                                                @*<input type="button" class="btn btn-primary" style="width: 130px; font-weight: bold;" value="Log Out" onclick="location.href='@Url.Action("LogOff", "Hm")'" />*@
+                                            </td>
+                                            <td style="width: 25%" nowrap="nowrap">
+                                                @*<input type="button" class="btn btn-info" style="width: 130px; font-weight: bold;" title="Section I" value="Print Section II" id="btnFormPrint" name="btnFormPrint" onclick="window.print()" />*@
+                                                <button type="button" class="btn btn-info" style="width: 150px; font-weight: bold;" title="Section II" value="Print Section II" id="btnFormPrint" name="btnFormPrint" onclick="window.print()">
+                                                    <span class="glyphicon glyphicon-print"></span>&nbsp;&nbsp;Print Section II
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="text-align: center; font-weight: bold; font-size: 15px;">
+                                                <br /> If you have questions, send an email to:  <a href="mailto:Research@dca.ga.gov" style="color: green">research@dca.ga.gov</a>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </section>
+
+    </div>
+</div>

@@ -1,0 +1,928 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="HMT_Certifications">
+          <Key>
+            <PropertyRef Name="CICOID" />
+            <PropertyRef Name="Fiscal_Year" />
+            <PropertyRef Name="ATCode" />
+          </Key>
+          <Property Name="CICOID" Type="char" MaxLength="7" Nullable="false" />
+          <Property Name="Fiscal_Year" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="ATCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="OrdinanceCorrect" Type="bit" Nullable="false" />
+          <Property Name="ShortTermRentals" Type="bit" Nullable="false" />
+          <Property Name="P1_Complete" Type="bit" Nullable="false" />
+          <Property Name="P2_Complete" Type="bit" Nullable="false" />
+          <Property Name="P3_Complete" Type="bit" Nullable="false" />
+          <Property Name="Cert_Complete" Type="bit" Nullable="false" />
+          <Property Name="Date_Certified" Type="smalldatetime" />
+          <Property Name="CEO_Name" Type="varchar" MaxLength="50" />
+          <Property Name="CEO_Title" Type="varchar" MaxLength="50" />
+          <Property Name="Preparer_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Preparer_Title" Type="varchar" MaxLength="50" />
+          <Property Name="Preparer_Phone" Type="varchar" MaxLength="20" />
+          <Property Name="Preparer_Email" Type="varchar" MaxLength="50" />
+          <Property Name="PCIS_Provider_Name" Type="varchar" MaxLength="50" />
+          <Property Name="PCIS_Provider_Title" Type="varchar" MaxLength="50" />
+          <Property Name="PCIS_Provider_Phone" Type="varchar" MaxLength="20" />
+          <Property Name="PCIS_Provider_Email" Type="varchar" MaxLength="50" />
+          <Property Name="HMTRID" Type="varchar" MaxLength="20" />
+          <Property Name="HMSurvey_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="HMT_PCIS_Docs">
+          <Key>
+            <PropertyRef Name="PCIS_DocId" />
+          </Key>
+          <Property Name="PCIS_DocId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CICOID" Type="char" MaxLength="7" Nullable="false" />
+          <Property Name="FiscalYear" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="ATCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="PCIS_DocName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PCIS_DocUrl" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="PCIS_DocDt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_HMT_PCIS_Docs_HMT_Certifications">
+          <End Role="HMT_Certifications" Type="Self.HMT_Certifications" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="HMT_PCIS_Docs" Type="Self.HMT_PCIS_Docs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HMT_Certifications">
+              <PropertyRef Name="CICOID" />
+              <PropertyRef Name="Fiscal_Year" />
+              <PropertyRef Name="ATCode" />
+            </Principal>
+            <Dependent Role="HMT_PCIS_Docs">
+              <PropertyRef Name="CICOID" />
+              <PropertyRef Name="FiscalYear" />
+              <PropertyRef Name="ATCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="pr_CheckCompletedYears" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="current" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_CheckCompletedYears_StaticForTest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="currentYear" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_Fill_PurposeAmts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="fiscalYear" Type="char" Mode="In" />
+          <Parameter Name="atCode" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_Get_Certification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="fiscalYear" Type="char" Mode="In" />
+          <Parameter Name="atCode" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_Get_Contracts_DMO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="fiscalYear" Type="char" Mode="In" />
+          <Parameter Name="atCode" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_Get_Contracts_Park" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="fiscalYear" Type="char" Mode="In" />
+          <Parameter Name="atCode" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_Get_Project_Statuses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_Get_Projects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="fiscalYear" Type="char" Mode="In" />
+          <Parameter Name="atCode" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_Get_PurposeAmts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="fiscalYear" Type="char" Mode="In" />
+          <Parameter Name="atCode" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_GetOrdinance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="currentYear" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_Prefill_Certs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fiscalYear" Type="char" Mode="In" />
+        </Function>
+        <Function Name="pr_Update_Certification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="fiscalYear" Type="char" Mode="In" />
+          <Parameter Name="atCode" Type="varchar" Mode="In" />
+          <Parameter Name="certComplete" Type="bit" Mode="In" />
+          <Parameter Name="dateCertified" Type="smalldatetime" Mode="In" />
+          <Parameter Name="CEOName" Type="varchar" Mode="In" />
+          <Parameter Name="CEOTitle" Type="varchar" Mode="In" />
+          <Parameter Name="preparerName" Type="varchar" Mode="In" />
+          <Parameter Name="preparerTitle" Type="varchar" Mode="In" />
+          <Parameter Name="preparerPhone" Type="varchar" Mode="In" />
+          <Parameter Name="preparerEmail" Type="varchar" Mode="In" />
+          <Parameter Name="PCISProviderName" Type="varchar" Mode="In" />
+          <Parameter Name="PCISProviderTitle" Type="varchar" Mode="In" />
+          <Parameter Name="PCISProviderPhone" Type="varchar" Mode="In" />
+          <Parameter Name="PCISProviderEmail" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_Update_Contracts_DMO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="fiscalYear" Type="char" Mode="In" />
+          <Parameter Name="atCode" Type="varchar" Mode="In" />
+          <Parameter Name="contractID" Type="int" Mode="In" />
+          <Parameter Name="entity" Type="varchar" Mode="In" />
+          <Parameter Name="updateType" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="pr_Update_Contracts_Park" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="fiscalYear" Type="char" Mode="In" />
+          <Parameter Name="atCode" Type="varchar" Mode="In" />
+          <Parameter Name="contractID" Type="int" Mode="In" />
+          <Parameter Name="entity" Type="varchar" Mode="In" />
+          <Parameter Name="updateType" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="pr_Update_P1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="fiscalYear" Type="char" Mode="In" />
+          <Parameter Name="atCode" Type="varchar" Mode="In" />
+          <Parameter Name="p1Complete" Type="bit" Mode="In" />
+          <Parameter Name="ordCorrect" Type="bit" Mode="In" />
+          <Parameter Name="shortTermRentals" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_Update_P2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="fiscalYear" Type="char" Mode="In" />
+          <Parameter Name="atCode" Type="varchar" Mode="In" />
+          <Parameter Name="p2Complete" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_Update_P3" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="fiscalYear" Type="char" Mode="In" />
+          <Parameter Name="atCode" Type="varchar" Mode="In" />
+          <Parameter Name="p3Complete" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_Update_Projects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="fiscalYear" Type="char" Mode="In" />
+          <Parameter Name="atCode" Type="varchar" Mode="In" />
+          <Parameter Name="projectID" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="status" Type="varchar" Mode="In" />
+          <Parameter Name="updateType" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="pr_Update_PurposeAmts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cicoid" Type="char" Mode="In" />
+          <Parameter Name="fiscalYear" Type="char" Mode="In" />
+          <Parameter Name="atCode" Type="varchar" Mode="In" />
+          <Parameter Name="pCode" Type="char" Mode="In" />
+          <Parameter Name="amount" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ModelsStoreContainer">
+          <EntitySet Name="HMT_Certifications" EntityType="Self.HMT_Certifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HMT_PCIS_Docs" EntityType="Self.HMT_PCIS_Docs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_HMT_PCIS_Docs_HMT_Certifications" Association="Self.FK_HMT_PCIS_Docs_HMT_Certifications">
+            <End Role="HMT_Certifications" EntitySet="HMT_Certifications" />
+            <End Role="HMT_PCIS_Docs" EntitySet="HMT_PCIS_Docs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HotelMotelTaxEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="pr_Update_P1">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+            <Parameter Name="p1Complete" Mode="In" Type="Boolean" />
+            <Parameter Name="ordCorrect" Mode="In" Type="Boolean" />
+            <Parameter Name="shortTermRentals" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_Update_PA">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+            <Parameter Name="pCode" Mode="In" Type="String" />
+            <Parameter Name="amount" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="FillPurposeAmts">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="FetchPurposeAmts" ReturnType="Collection(Models.FetchPurposeAmts)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdatePurposeAmts">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+            <Parameter Name="pCode" Mode="In" Type="String" />
+            <Parameter Name="amount" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetDMOContracts" ReturnType="Collection(Models.GetDMOContracts)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetParkContracts" ReturnType="Collection(Models.GetParkContracts)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateDMOContracts" ReturnType="Collection(Models.UpdateDMOContracts)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+            <Parameter Name="contractID" Mode="In" Type="Int32" />
+            <Parameter Name="entity" Mode="In" Type="String" />
+            <Parameter Name="updateType" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateParksContracts" ReturnType="Collection(Models.UpdateParksContracts)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+            <Parameter Name="contractID" Mode="In" Type="Int32" />
+            <Parameter Name="entity" Mode="In" Type="String" />
+            <Parameter Name="updateType" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="pr_Get_Certification" ReturnType="Collection(Models.pr_Get_Certification_Result)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_Get_Facilities" ReturnType="Collection(Models.pr_Get_Facilities_Result)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="FetchPcisList" ReturnType="Collection(Models.FetchPcisList)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="FetchProjectStatusList" ReturnType="Collection(Models.FetchProjectStatusList)" />
+          <FunctionImport Name="FetchProjectList" ReturnType="Collection(Models.FetchProjectList)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_Prefill_Certs">
+          <Parameter Name="fiscalYear" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_Update_Facilities" ReturnType="Collection(Int32)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+            <Parameter Name="facilityID" Mode="In" Type="Int32" />
+            <Parameter Name="facility" Mode="In" Type="String" />
+            <Parameter Name="capacity" Mode="In" Type="Int32" />
+            <Parameter Name="updateType" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateFormBStatus" ReturnType="Collection(Int32)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+            <Parameter Name="p2Complete" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="UpdatePcis" ReturnType="Collection(Int32)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+            <Parameter Name="pcisID" Mode="In" Type="Int32" />
+            <Parameter Name="entity" Mode="In" Type="String" />
+            <Parameter Name="entityProjectName" Mode="In" Type="String" />
+            <Parameter Name="promotionItems" Mode="In" Type="String" />
+            <Parameter Name="expenditureAmount" Mode="In" Type="Int32" />
+            <Parameter Name="updateType" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateProjects" ReturnType="Collection(Int32)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+            <Parameter Name="projectID" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="status" Mode="In" Type="String" />
+            <Parameter Name="updateType" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="lstProjectResults" ReturnType="Collection(Int32)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+            <Parameter Name="p3Complete" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateFormCStatus" ReturnType="Collection(Int32)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+            <Parameter Name="p3Complete" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="GetCertification" ReturnType="Collection(Models.GetCertification)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateCertification">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="fiscalYear" Mode="In" Type="String" />
+            <Parameter Name="atCode" Mode="In" Type="String" />
+            <Parameter Name="certComplete" Mode="In" Type="Boolean" />
+            <Parameter Name="dateCertified" Mode="In" Type="DateTime" />
+            <Parameter Name="CEOName" Mode="In" Type="String" />
+            <Parameter Name="CEOTitle" Mode="In" Type="String" />
+            <Parameter Name="preparerName" Mode="In" Type="String" />
+            <Parameter Name="preparerTitle" Mode="In" Type="String" />
+            <Parameter Name="preparerPhone" Mode="In" Type="String" />
+            <Parameter Name="preparerEmail" Mode="In" Type="String" />
+            <Parameter Name="PCISProviderName" Mode="In" Type="String" />
+            <Parameter Name="PCISProviderTitle" Mode="In" Type="String" />
+            <Parameter Name="PCISProviderPhone" Mode="In" Type="String" />
+            <Parameter Name="PCISProviderEmail" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetOrdinance" ReturnType="Collection(Models.GetOrdinance)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="currentYear" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_CheckCompletedYears1" ReturnType="Collection(Models.pr_CheckCompletedYears1_Result1)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="current" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="HMT_Certifications" EntityType="Models.HMT_Certifications" />
+          <EntitySet Name="HMT_PCIS_Docs" EntityType="Models.HMT_PCIS_Docs" />
+          <AssociationSet Name="FK_HMT_PCIS_Docs_HMT_Certifications" Association="Models.FK_HMT_PCIS_Docs_HMT_Certifications">
+            <End Role="HMT_Certifications" EntitySet="HMT_Certifications" />
+            <End Role="HMT_PCIS_Docs" EntitySet="HMT_PCIS_Docs" />
+          </AssociationSet>
+          <FunctionImport Name="CheckCertificationsDashboard" ReturnType="Collection(Models.CheckCertificationsDashboard)">
+            <Parameter Name="cicoid" Mode="In" Type="String" />
+            <Parameter Name="current" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="pr_CheckCompletedYears_Result">
+          <Property Type="Int32" Name="CurrentYearSubmitted" Nullable="false" />
+          <Property Type="Int32" Name="PreviousYearSubmitted" Nullable="false" />
+          <Property Type="Int32" Name="YearBeforePreviousYearSubmitted" Nullable="false" />
+          <Property Type="Int32" Name="CurrentYearCompleted" Nullable="false" />
+          <Property Type="Int32" Name="PreviousYearCompleted" Nullable="false" />
+          <Property Type="Int32" Name="YearBeforePreviousYearCompleted" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_GetOrdinance_Result">
+          <Property Type="String" Name="Paragraph" Nullable="false" MaxLength="35" />
+          <Property Type="Decimal" Name="Tax_Rate" Nullable="true" Precision="4" Scale="3" />
+          <Property Type="DateTime" Name="Ordinance_Date" Nullable="true" Precision="16" />
+        </ComplexType>
+        <ComplexType Name="pr_Fill_PA_Result">
+          <Property Type="String" Name="Purpose" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="Amount" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_Get_PA_Result">
+          <Property Type="String" Name="Purpose" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="Amount" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_Get_PurposeAmts_Result">
+          <Property Type="String" Name="PCode" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="Purpose" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="Amount" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="FetchPurposeAmts">
+          <Property Type="String" Name="PCode" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="Purpose" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="Amount" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_Get_Contracts_DMO_Result">
+          <Property Type="Int32" Name="Contract_ID" Nullable="false" />
+          <Property Type="String" Name="CICOID" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Fiscal_Year" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="ATCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Project_Type" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="Entity" Nullable="false" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="pr_Get_Contracts_Park_Result">
+          <Property Type="Int32" Name="Contract_ID" Nullable="false" />
+          <Property Type="String" Name="CICOID" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Fiscal_Year" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="ATCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Project_Type" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="Entity" Nullable="false" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="GetDMOContracts">
+          <Property Type="Int32" Name="Contract_ID" Nullable="false" />
+          <Property Type="String" Name="CICOID" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Fiscal_Year" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="ATCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Project_Type" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="Entity" Nullable="false" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="GetParkContracts">
+          <Property Type="Int32" Name="Contract_ID" Nullable="false" />
+          <Property Type="String" Name="CICOID" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Fiscal_Year" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="ATCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Project_Type" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="Entity" Nullable="false" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="UpdateDMOContracts">
+          <Property Type="Int32" Name="Contract_ID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="UpdateParksContracts">
+          <Property Type="Int32" Name="Contract_ID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_Get_Certification_Result">
+          <Property Type="String" Name="CICOID" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Fiscal_Year" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="ATCode" Nullable="false" MaxLength="10" />
+          <Property Type="Boolean" Name="OrdinanceCorrect" Nullable="false" />
+          <Property Type="Boolean" Name="P1_Complete" Nullable="false" />
+          <Property Type="Boolean" Name="P2_Complete" Nullable="false" />
+          <Property Type="Boolean" Name="P3_Complete" Nullable="false" />
+          <Property Type="Boolean" Name="Cert_Complete" Nullable="false" />
+          <Property Type="DateTime" Name="Date_Certified" Nullable="true" Precision="16" />
+          <Property Type="String" Name="CEO_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CEO_Title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Preparer_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Preparer_Title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Preparer_Phone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Preparer_Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PCIS_Provider_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PCIS_Provider_Title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PCIS_Provider_Phone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PCIS_Provider_Email" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="pr_Get_Facilities_Result">
+          <Property Type="Int32" Name="Facility_ID" Nullable="false" />
+          <Property Type="String" Name="CICOID" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Fiscal_Year" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="ATCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Facility" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="Capacity" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_Get_PCIS_Result">
+          <Property Type="Int32" Name="PCIS_ID" Nullable="false" />
+          <Property Type="String" Name="CICOID" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Fiscal_Year" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="ATCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Entity" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Entity_Project_Name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Promotion_Items" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="Expenditure_Amount" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_Get_Projects_Result">
+          <Property Type="Int32" Name="Project_ID" Nullable="false" />
+          <Property Type="String" Name="CICOID" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Fiscal_Year" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="ATCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Project_Status" Nullable="false" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="pr_CheckCompletedYears_StaticForTest_Result">
+          <Property Type="Boolean" Name="EligibleToComplete" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearSubmitted" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearSubmitted" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearSubmitted" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearRequired" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="FetchPcisList">
+          <Property Type="Int32" Name="PCIS_ID" Nullable="false" />
+          <Property Type="String" Name="CICOID" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Fiscal_Year" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="ATCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Entity" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Entity_Project_Name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Promotion_Items" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="Expenditure_Amount" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_CheckCompletedYears_Result1">
+          <Property Type="Boolean" Name="EligibleToComplete" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearSubmitted" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearSubmitted" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearSubmitted" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearRequired" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="FetchProjectList">
+          <Property Type="Int32" Name="Project_ID" Nullable="false" />
+          <Property Type="String" Name="CICOID" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Fiscal_Year" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="ATCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Project_Status" Nullable="false" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="FetchProjectStatusList">
+          <Property Type="String" Name="ProjectStatus" Nullable="false" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="GetCertification">
+          <Property Type="String" Name="CICOID" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="Fiscal_Year" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="ATCode" Nullable="false" MaxLength="10" />
+          <Property Type="Boolean" Name="OrdinanceCorrect" Nullable="false" />
+          <Property Type="Boolean" Name="P1_Complete" Nullable="false" />
+          <Property Type="Boolean" Name="P2_Complete" Nullable="false" />
+          <Property Type="Boolean" Name="P3_Complete" Nullable="false" />
+          <Property Type="Boolean" Name="Cert_Complete" Nullable="false" />
+          <Property Type="DateTime" Name="Date_Certified" Nullable="true" Precision="16" />
+          <Property Type="String" Name="CEO_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CEO_Title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Preparer_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Preparer_Title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Preparer_Phone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Preparer_Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PCIS_Provider_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PCIS_Provider_Title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PCIS_Provider_Phone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PCIS_Provider_Email" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="pr_CheckCompletedYears1_Result">
+          <Property Type="Boolean" Name="EligibleToComplete" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearSubmitted" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearSubmitted" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearSubmitted" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="EntityHasOrdinance" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_GetOrdinance_Result1">
+          <Property Type="String" Name="Paragraph" Nullable="false" MaxLength="35" />
+          <Property Type="Boolean" Name="PCISRequired" Nullable="false" />
+          <Property Type="Decimal" Name="Tax_Rate" Nullable="true" Precision="4" Scale="3" />
+          <Property Type="String" Name="AtCode" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="Ordinance_Date" Nullable="true" Precision="16" />
+          <Property Type="Boolean" Name="P1_Complete" Nullable="false" />
+          <Property Type="Boolean" Name="OrdinanceCorrect" Nullable="true" />
+          <Property Type="Boolean" Name="CertTableMatchesOrdTable" Nullable="true" />
+          <Property Type="Boolean" Name="CertRecordExists" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_GetOrdinance_Result2">
+          <Property Type="String" Name="Paragraph" Nullable="false" MaxLength="35" />
+          <Property Type="Boolean" Name="PCISRequired" Nullable="false" />
+          <Property Type="Decimal" Name="Tax_Rate" Nullable="true" Precision="4" Scale="3" />
+          <Property Type="String" Name="AtCode" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="Ordinance_Date" Nullable="true" Precision="16" />
+          <Property Type="Boolean" Name="P1_Complete" Nullable="false" />
+          <Property Type="Boolean" Name="OrdinanceCorrect" Nullable="true" />
+          <Property Type="Boolean" Name="CertTableMatchesOrdTable" Nullable="true" />
+          <Property Type="Boolean" Name="CertRecordExists" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetOrdinance">
+          <Property Type="String" Name="Paragraph" Nullable="true" MaxLength="35" />
+          <Property Type="Boolean" Name="PCISRequired" Nullable="false" />
+          <Property Type="Decimal" Name="Tax_Rate" Nullable="true" Precision="4" Scale="3" />
+          <Property Type="String" Name="AtCode" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="Ordinance_Date" Nullable="true" Precision="16" />
+          <Property Type="Boolean" Name="P1_Complete" Nullable="false" />
+          <Property Type="Boolean" Name="OrdinanceCorrect" Nullable="true" />
+          <Property Type="Boolean" Name="CertTableMatchesOrdTable" Nullable="true" />
+          <Property Type="Boolean" Name="CertRecordExists" Nullable="true" />
+          <Property Type="Boolean" Name="ShortTermRentals" Nullable="true" />
+          <Property Type="Boolean" Name="isMissing" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_CheckCompletedYears1_Result1">
+          <Property Type="Boolean" Name="EligibleToComplete" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearSubmitted" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearSubmitted" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearSubmitted" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="EntityHasOrdinance" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_CheckCompletedYears_Result2">
+          <Property Type="Boolean" Name="EligibleToComplete" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearSubmitted" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearSubmitted" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearSubmitted" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="EntityHasOrdinance" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="HMT_Certifications">
+          <Key>
+            <PropertyRef Name="CICOID" />
+            <PropertyRef Name="Fiscal_Year" />
+            <PropertyRef Name="ATCode" />
+          </Key>
+          <Property Name="CICOID" Type="String" Nullable="false" MaxLength="7" FixedLength="true" Unicode="false" />
+          <Property Name="Fiscal_Year" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="ATCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="OrdinanceCorrect" Type="Boolean" Nullable="false" />
+          <Property Name="P1_Complete" Type="Boolean" Nullable="false" />
+          <Property Name="P2_Complete" Type="Boolean" Nullable="false" />
+          <Property Name="P3_Complete" Type="Boolean" Nullable="false" />
+          <Property Name="Cert_Complete" Type="Boolean" Nullable="false" />
+          <Property Name="Date_Certified" Type="DateTime" Precision="0" />
+          <Property Name="CEO_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CEO_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Preparer_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Preparer_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Preparer_Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Preparer_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PCIS_Provider_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PCIS_Provider_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PCIS_Provider_Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PCIS_Provider_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HMTRID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="HMSurvey_ID" Type="Int32" />
+          <NavigationProperty Name="HMT_PCIS_Docs" Relationship="Models.FK_HMT_PCIS_Docs_HMT_Certifications" FromRole="HMT_Certifications" ToRole="HMT_PCIS_Docs" />
+          <Property Name="ShortTermRentals" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HMT_PCIS_Docs">
+          <Key>
+            <PropertyRef Name="PCIS_DocId" />
+          </Key>
+          <Property Name="PCIS_DocId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CICOID" Type="String" Nullable="false" MaxLength="7" FixedLength="true" Unicode="false" />
+          <Property Name="FiscalYear" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="ATCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PCIS_DocName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PCIS_DocUrl" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="PCIS_DocDt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="HMT_Certifications" Relationship="Models.FK_HMT_PCIS_Docs_HMT_Certifications" FromRole="HMT_PCIS_Docs" ToRole="HMT_Certifications" />
+        </EntityType>
+        <Association Name="FK_HMT_PCIS_Docs_HMT_Certifications">
+          <End Type="Models.HMT_Certifications" Role="HMT_Certifications" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Models.HMT_PCIS_Docs" Role="HMT_PCIS_Docs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HMT_Certifications">
+              <PropertyRef Name="CICOID" />
+              <PropertyRef Name="Fiscal_Year" />
+              <PropertyRef Name="ATCode" />
+            </Principal>
+            <Dependent Role="HMT_PCIS_Docs">
+              <PropertyRef Name="CICOID" />
+              <PropertyRef Name="FiscalYear" />
+              <PropertyRef Name="ATCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="pr_CheckCompletedYears_Result3">
+          <Property Type="Boolean" Name="EligibleToComplete" Nullable="true" />
+          <Property Type="Boolean" Name="EntityHasOrdinance" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearRequired" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CheckCertificationsDashboard">
+          <Property Type="Boolean" Name="EligibleToComplete" Nullable="true" />
+          <Property Type="Boolean" Name="EntityHasOrdinance" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearCompleted" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="PreviousYearRequired" Nullable="true" />
+          <Property Type="Boolean" Name="YearBeforePreviousYearRequired" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="HotelMotelTaxEntities">
+          <FunctionImportMapping FunctionImportName="pr_Update_P1" FunctionName="Models.Store.pr_Update_P1" />
+          <FunctionImportMapping FunctionImportName="FillPurposeAmts" FunctionName="Models.Store.pr_Fill_PurposeAmts" />
+          <FunctionImportMapping FunctionImportName="FetchPurposeAmts" FunctionName="Models.Store.pr_Get_PurposeAmts">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.FetchPurposeAmts">
+                <ScalarProperty Name="PCode" ColumnName="PCode" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdatePurposeAmts" FunctionName="Models.Store.pr_Update_PurposeAmts" />
+          <FunctionImportMapping FunctionImportName="GetDMOContracts" FunctionName="Models.Store.pr_Get_Contracts_DMO">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.GetDMOContracts">
+                <ScalarProperty Name="Contract_ID" ColumnName="Contract_ID" />
+                <ScalarProperty Name="CICOID" ColumnName="CICOID" />
+                <ScalarProperty Name="Fiscal_Year" ColumnName="Fiscal_Year" />
+                <ScalarProperty Name="ATCode" ColumnName="ATCode" />
+                <ScalarProperty Name="Project_Type" ColumnName="Project_Type" />
+                <ScalarProperty Name="Entity" ColumnName="Entity" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetParkContracts" FunctionName="Models.Store.pr_Get_Contracts_Park">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.GetParkContracts">
+                <ScalarProperty Name="Contract_ID" ColumnName="Contract_ID" />
+                <ScalarProperty Name="CICOID" ColumnName="CICOID" />
+                <ScalarProperty Name="Fiscal_Year" ColumnName="Fiscal_Year" />
+                <ScalarProperty Name="ATCode" ColumnName="ATCode" />
+                <ScalarProperty Name="Project_Type" ColumnName="Project_Type" />
+                <ScalarProperty Name="Entity" ColumnName="Entity" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateDMOContracts" FunctionName="Models.Store.pr_Update_Contracts_DMO" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.UpdateDMOContracts">
+                <ScalarProperty Name="Contract_ID" ColumnName="Contract_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateParksContracts" FunctionName="Models.Store.pr_Update_Contracts_Park" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.UpdateParksContracts">
+                <ScalarProperty Name="Contract_ID" ColumnName="Contract_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_Get_Certification" FunctionName="Models.Store.pr_Get_Certification">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.pr_Get_Certification_Result">
+                <ScalarProperty Name="CICOID" ColumnName="CICOID" />
+                <ScalarProperty Name="Fiscal_Year" ColumnName="Fiscal_Year" />
+                <ScalarProperty Name="ATCode" ColumnName="ATCode" />
+                <ScalarProperty Name="OrdinanceCorrect" ColumnName="OrdinanceCorrect" />
+                <ScalarProperty Name="P1_Complete" ColumnName="P1_Complete" />
+                <ScalarProperty Name="P2_Complete" ColumnName="P2_Complete" />
+                <ScalarProperty Name="P3_Complete" ColumnName="P3_Complete" />
+                <ScalarProperty Name="Cert_Complete" ColumnName="Cert_Complete" />
+                <ScalarProperty Name="Date_Certified" ColumnName="Date_Certified" />
+                <ScalarProperty Name="CEO_Name" ColumnName="CEO_Name" />
+                <ScalarProperty Name="CEO_Title" ColumnName="CEO_Title" />
+                <ScalarProperty Name="Preparer_Name" ColumnName="Preparer_Name" />
+                <ScalarProperty Name="Preparer_Title" ColumnName="Preparer_Title" />
+                <ScalarProperty Name="Preparer_Phone" ColumnName="Preparer_Phone" />
+                <ScalarProperty Name="Preparer_Email" ColumnName="Preparer_Email" />
+                <ScalarProperty Name="PCIS_Provider_Name" ColumnName="PCIS_Provider_Name" />
+                <ScalarProperty Name="PCIS_Provider_Title" ColumnName="PCIS_Provider_Title" />
+                <ScalarProperty Name="PCIS_Provider_Phone" ColumnName="PCIS_Provider_Phone" />
+                <ScalarProperty Name="PCIS_Provider_Email" ColumnName="PCIS_Provider_Email" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FetchProjectStatusList" FunctionName="Models.Store.pr_Get_Project_Statuses" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.FetchProjectStatusList">
+                <ScalarProperty Name="ProjectStatus" ColumnName="ProjectStatus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FetchProjectList" FunctionName="Models.Store.pr_Get_Projects">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.FetchProjectList">
+                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+                <ScalarProperty Name="CICOID" ColumnName="CICOID" />
+                <ScalarProperty Name="Fiscal_Year" ColumnName="Fiscal_Year" />
+                <ScalarProperty Name="ATCode" ColumnName="ATCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Project_Status" ColumnName="Project_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_Prefill_Certs" FunctionName="Models.Store.pr_Prefill_Certs" />
+          <FunctionImportMapping FunctionImportName="UpdateFormBStatus" FunctionName="Models.Store.pr_Update_P2" />
+          <FunctionImportMapping FunctionImportName="UpdateProjects" FunctionName="Models.Store.pr_Update_Projects" />
+          <FunctionImportMapping FunctionImportName="lstProjectResults" FunctionName="Models.Store.pr_Update_P3" />
+          <FunctionImportMapping FunctionImportName="UpdateFormCStatus" FunctionName="Models.Store.pr_Update_P3" />
+          <FunctionImportMapping FunctionImportName="GetCertification" FunctionName="Models.Store.pr_Get_Certification">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.GetCertification">
+                <ScalarProperty Name="CICOID" ColumnName="CICOID" />
+                <ScalarProperty Name="Fiscal_Year" ColumnName="Fiscal_Year" />
+                <ScalarProperty Name="ATCode" ColumnName="ATCode" />
+                <ScalarProperty Name="OrdinanceCorrect" ColumnName="OrdinanceCorrect" />
+                <ScalarProperty Name="P1_Complete" ColumnName="P1_Complete" />
+                <ScalarProperty Name="P2_Complete" ColumnName="P2_Complete" />
+                <ScalarProperty Name="P3_Complete" ColumnName="P3_Complete" />
+                <ScalarProperty Name="Cert_Complete" ColumnName="Cert_Complete" />
+                <ScalarProperty Name="Date_Certified" ColumnName="Date_Certified" />
+                <ScalarProperty Name="CEO_Name" ColumnName="CEO_Name" />
+                <ScalarProperty Name="CEO_Title" ColumnName="CEO_Title" />
+                <ScalarProperty Name="Preparer_Name" ColumnName="Preparer_Name" />
+                <ScalarProperty Name="Preparer_Title" ColumnName="Preparer_Title" />
+                <ScalarProperty Name="Preparer_Phone" ColumnName="Preparer_Phone" />
+                <ScalarProperty Name="Preparer_Email" ColumnName="Preparer_Email" />
+                <ScalarProperty Name="PCIS_Provider_Name" ColumnName="PCIS_Provider_Name" />
+                <ScalarProperty Name="PCIS_Provider_Title" ColumnName="PCIS_Provider_Title" />
+                <ScalarProperty Name="PCIS_Provider_Phone" ColumnName="PCIS_Provider_Phone" />
+                <ScalarProperty Name="PCIS_Provider_Email" ColumnName="PCIS_Provider_Email" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateCertification" FunctionName="Models.Store.pr_Update_Certification" />
+          <FunctionImportMapping FunctionImportName="GetOrdinance" FunctionName="Models.Store.pr_GetOrdinance">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.GetOrdinance">
+                <ScalarProperty Name="Paragraph" ColumnName="Paragraph" />
+                <ScalarProperty Name="PCISRequired" ColumnName="PCISRequired" />
+                <ScalarProperty Name="Tax_Rate" ColumnName="Tax_Rate" />
+                <ScalarProperty Name="AtCode" ColumnName="AtCode" />
+                <ScalarProperty Name="Ordinance_Date" ColumnName="Ordinance_Date" />
+                <ScalarProperty Name="P1_Complete" ColumnName="P1_Complete" />
+                <ScalarProperty Name="OrdinanceCorrect" ColumnName="OrdinanceCorrect" />
+                <ScalarProperty Name="CertTableMatchesOrdTable" ColumnName="CertTableMatchesOrdTable" />
+                <ScalarProperty Name="CertRecordExists" ColumnName="CertRecordExists" />
+                <ScalarProperty Name="ShortTermRentals" ColumnName="ShortTermRentals" />
+                <ScalarProperty Name="isMissing" ColumnName="isMissing" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="HMT_Certifications">
+            <EntityTypeMapping TypeName="Models.HMT_Certifications">
+              <MappingFragment StoreEntitySet="HMT_Certifications">
+                <ScalarProperty Name="ShortTermRentals" ColumnName="ShortTermRentals" />
+                <ScalarProperty Name="HMSurvey_ID" ColumnName="HMSurvey_ID" />
+                <ScalarProperty Name="HMTRID" ColumnName="HMTRID" />
+                <ScalarProperty Name="PCIS_Provider_Email" ColumnName="PCIS_Provider_Email" />
+                <ScalarProperty Name="PCIS_Provider_Phone" ColumnName="PCIS_Provider_Phone" />
+                <ScalarProperty Name="PCIS_Provider_Title" ColumnName="PCIS_Provider_Title" />
+                <ScalarProperty Name="PCIS_Provider_Name" ColumnName="PCIS_Provider_Name" />
+                <ScalarProperty Name="Preparer_Email" ColumnName="Preparer_Email" />
+                <ScalarProperty Name="Preparer_Phone" ColumnName="Preparer_Phone" />
+                <ScalarProperty Name="Preparer_Title" ColumnName="Preparer_Title" />
+                <ScalarProperty Name="Preparer_Name" ColumnName="Preparer_Name" />
+                <ScalarProperty Name="CEO_Title" ColumnName="CEO_Title" />
+                <ScalarProperty Name="CEO_Name" ColumnName="CEO_Name" />
+                <ScalarProperty Name="Date_Certified" ColumnName="Date_Certified" />
+                <ScalarProperty Name="Cert_Complete" ColumnName="Cert_Complete" />
+                <ScalarProperty Name="P3_Complete" ColumnName="P3_Complete" />
+                <ScalarProperty Name="P2_Complete" ColumnName="P2_Complete" />
+                <ScalarProperty Name="P1_Complete" ColumnName="P1_Complete" />
+                <ScalarProperty Name="OrdinanceCorrect" ColumnName="OrdinanceCorrect" />
+                <ScalarProperty Name="ATCode" ColumnName="ATCode" />
+                <ScalarProperty Name="Fiscal_Year" ColumnName="Fiscal_Year" />
+                <ScalarProperty Name="CICOID" ColumnName="CICOID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HMT_PCIS_Docs">
+            <EntityTypeMapping TypeName="Models.HMT_PCIS_Docs">
+              <MappingFragment StoreEntitySet="HMT_PCIS_Docs">
+                <ScalarProperty Name="PCIS_DocDt" ColumnName="PCIS_DocDt" />
+                <ScalarProperty Name="PCIS_DocUrl" ColumnName="PCIS_DocUrl" />
+                <ScalarProperty Name="PCIS_DocName" ColumnName="PCIS_DocName" />
+                <ScalarProperty Name="ATCode" ColumnName="ATCode" />
+                <ScalarProperty Name="FiscalYear" ColumnName="FiscalYear" />
+                <ScalarProperty Name="CICOID" ColumnName="CICOID" />
+                <ScalarProperty Name="PCIS_DocId" ColumnName="PCIS_DocId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CheckCertificationsDashboard" FunctionName="Models.Store.pr_CheckCompletedYears">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.CheckCertificationsDashboard">
+                <ScalarProperty Name="EligibleToComplete" ColumnName="EligibleToComplete" />
+                <ScalarProperty Name="EntityHasOrdinance" ColumnName="EntityHasOrdinance" />
+                <ScalarProperty Name="CurrentYearCompleted" ColumnName="CurrentYearCompleted" />
+                <ScalarProperty Name="PreviousYearCompleted" ColumnName="PreviousYearCompleted" />
+                <ScalarProperty Name="YearBeforePreviousYearCompleted" ColumnName="YearBeforePreviousYearCompleted" />
+                <ScalarProperty Name="CurrentYearRequired" ColumnName="CurrentYearRequired" />
+                <ScalarProperty Name="PreviousYearRequired" ColumnName="PreviousYearRequired" />
+                <ScalarProperty Name="YearBeforePreviousYearRequired" ColumnName="YearBeforePreviousYearRequired" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

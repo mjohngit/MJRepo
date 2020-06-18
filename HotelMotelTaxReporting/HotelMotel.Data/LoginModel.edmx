@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="pr_CheckLoginLocalGov" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="login" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="overridetype" Type="varchar" Mode="In" />
+          <Parameter Name="debug" Type="bit" Mode="In" />
+        </Function>
+        <EntityContainer Name="ModelsStoreContainer" />
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ExternalUsersMasterEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="CheckLoginGovs" ReturnType="Collection(Models.pr_CheckLoginLocalGov_Result)">
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="overridetype" Mode="In" Type="String" />
+            <Parameter Name="debug" Mode="In" Type="Boolean" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="pr_CheckLoginLocalGov_Result">
+          <Property Type="String" Name="LoginResult" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Agency" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="CICO" Nullable="false" />
+          <Property Type="Int32" Name="CICOID" Nullable="false" />
+          <Property Type="String" Name="FIPS" Nullable="false" MaxLength="7" />
+          <Property Type="String" Name="OverrideType" Nullable="false" MaxLength="15" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="ExternalUsersMasterEntities" >
+          <FunctionImportMapping FunctionImportName="CheckLoginGovs" FunctionName="Models.Store.pr_CheckLoginLocalGov">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.pr_CheckLoginLocalGov_Result">
+                <ScalarProperty Name="LoginResult" ColumnName="LoginResult" />
+                <ScalarProperty Name="Agency" ColumnName="Agency" />
+                <ScalarProperty Name="CICO" ColumnName="CICO" />
+                <ScalarProperty Name="CICOID" ColumnName="CICOID" />
+                <ScalarProperty Name="FIPS" ColumnName="FIPS" />
+                <ScalarProperty Name="OverrideType" ColumnName="OverrideType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

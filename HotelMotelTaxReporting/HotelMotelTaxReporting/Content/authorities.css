@@ -1,0 +1,149 @@
+﻿.gridTable {margin: 5px;padding: 10px;border: 1px #c8c8c8 solid;border-collapse: collapse;min-width: 550px; background-color: #fff;color: #fff;}
+.gridHead th{font-weight: bold;background-color: #030D8D;color: #fff;padding: 10px}
+.gridHead a:link,.gridHead a:visited,.gridHead a:active,.gridHead a:hover {color: #fff;}
+.gridHead a:hover {text-decoration:underline;}
+.gridTable tr.gridAltRow{background-color: #efeeef;}
+.gridTable tr:hover{background-color: #f6f70a;}
+.gridAltRow td{padding: 10px;margin: 5px; color: #333;}
+.gridRow td{padding: 10px;color: #333;}
+.gridFooter td{padding: 10px; background-color: #c7d1d6;color: #999;font-size: 12pt;text-align: center;}
+.gridFooter a{font-weight: bold;color: #333; border: 1px #333 solid;}body {
+}
+
+@media print {
+  a[href]:after {
+    content: none !important;
+  }
+  #btnFormPrint, #btnMainmenu {
+      visibility: hidden;
+  }
+}
+
+tr.gridhighlight>td {
+    background-color: #F9A7B0;
+}
+
+.popover {
+    position: fixed;
+}
+
+#editorsm
+{
+   width:6em;
+}
+ 
+.field-validation-error {
+    color: #f00 !important;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00 !important;
+    background-color: #fee !important;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.ui-datepicker { 
+    margin-left: 70px;
+    margin-top: 5px;
+  z-index: 500;
+}
+
+.tbltdbigfont {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #369;
+}
+
+.tbltd1mm {
+    width: 55px; font-weight: bold; text-align: center;
+}
+
+.tbltd2mm {
+    width: 100px; font-weight: bold; font-size: 14px; text-align: center; 
+}
+
+.tbltd3mm {
+    font-weight: bold; font-size: 13px; text-align: left; padding-left: 20px;
+}
+
+.linkdisabled{
+   cursor:text;
+}
+
+#navcontainer ul
+{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    height: 15px;
+    padding-top:3px;
+    /*letter-spacing: 1px;*/
+}
+
+#navcontainer ul li { display: inline; padding:0 4px 0 4px;}
+
+#navcontainer ul li a
+{
+    text-decoration: none;
+    padding: .1em 1em;
+    color: #fff;
+    background-color: #0099cc;
+}
+
+#navcontainer ul li a:hover
+{
+    color: #fff;
+    background-color: #E87D3B;
+}
+
+.btn-xs {
+  padding: 1px 5px;
+}
+
+ @font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('/fonts/glyphicons-halflings-regular.eot');
+}
+
+ #FileDelete
+{
+	display:none;
+	position:fixed;
+	top:0px;
+	width:100%;
+	height:150px;
+	background-color:#5882FA;
+	text-align:center;
+}
+#FileDelete h2
+{
+	color:#0431B4;
+}
+#delete,#cancel
+{
+	border:none;
+	background:none;
+	width:100px;
+	height:40px;
+	font-size:18px;
+	border-radius:5px;
+	border:2px solid white;
+	margin:10px;
+	color:#CED8F6;
+}

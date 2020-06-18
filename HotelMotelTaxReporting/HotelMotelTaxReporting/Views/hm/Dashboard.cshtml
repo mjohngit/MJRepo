@@ -1,0 +1,198 @@
+﻿@model HotelMotel.Business.Models.DashboardResults
+
+@{
+    ViewBag.Title = "Dashboard - Hotel Motel Tax Reporting System";
+}
+<p><br /></p>
+<div class="row" style="margin-bottom: 20px;">
+    <div style="width: 600px; margin: 2px 0 30px 200px; text-align: justify;">
+        <section id="loginForm">
+            @using (Html.BeginForm("Mainmenu", "hm", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <table class="span6 table-bordered">
+                    <tr>
+                        <td class="text-center">
+                            <h2 style="text-decoration: underline; color: #E87D3B; text-align: center;"> Hotel-Motel Tax Report System</h2>
+                            <p>
+                                <h4>@Session["LoggedCityName"] (@Session["LoginId"])</h4>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">
+                            <div style="width: 85%; font-weight: bolder; font-size: 16px; margin: 0 auto;">
+                                Local Governments are considered <strong>compliant</strong> witht the Hotel-Motel Tax Report filing requirements
+                                if the report <u>has been completed for the most recent three years</u>
+                            </div>
+                            <div class="text-center" style="width: 80%; margin: 0 auto; text-align: center; margin-top: 14px; font-weight: bold; font-size: 14px;"> Our records indicate below the <u>report completion status</u> by your government for the <u>applicable three years</u></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">
+                            <div class="well text-center">
+                                @if (Model.EligibleToComplete && !Model.EntityHasOrdinance)
+                                {
+                                    <div style="height: 115px; width: 90%; text-align: center; border: 1px solid; border-radius: 5px; margin: 0 auto;">
+                                        <p>
+                                            <h3 style="color: red;">No Ordinance is on file for your Government. Please contact <a href="mailto:dca.research@dca.ga.gov">dca.research@dca.ga.gov</a></h3>
+                                        </p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    if (Model.EntityHasOrdinance)
+                                    {
+                                        <table class="table-bordered table-striped" style="font-weight: bold;">
+                                            <tr style="height: 45px;">
+                                                <td style="width: 40%; font-size: 15px;">
+                                                    @Model.PrevYear2 Report Completed
+                                                </td>
+                                                @if (Model.YearBeforePreviousYearRequired)
+                                                {
+                                                    if (Model.PreviousYearCompleted2 == true)
+                                                    {
+                                                        <td style="font-size: 15px; color: green;">
+                                                            Yes
+                                                        </td>
+                                                        <td style="width: 35%;">
+                                                            <span style="text-align: center; font-size: 14px; color: green;">Thank you</span>
+                                                            <input type="submit" class="btn btn-success" style="width: 175px; font-size: small; font-weight: bold;"
+                                                                   id="btnPrevYear2Pr" value="View/Print  @Model.PrevYear2 Report" />
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="font-size: 15px; color: red;">
+                                                            No
+                                                        </td>
+                                                        <td style="width: 35%;">
+                                                            <input type="submit" class="btn btn-warning" style="width: 175px; font-size: small; font-weight: bold;" id="btnPrevYear2Fl" value="Complete  @Model.PrevYear2 Report" />
+                                                        </td>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <td style="font-size: 15px; color: navy;">
+                                                        <span style="text-align: center; font-size: 14px; color: navy;">N/A</span>
+                                                    </td>
+                                                    <td style="width: 35%;">
+                                                        <span style="text-align: center; font-size: 14px; color: blue;">Report Not Required</span>
+                                                    </td>
+                                                }
+
+                                            </tr>
+                                            <tr style="height: 55px;">
+                                                <td style="font-size: 15px;">
+                                                    @Model.PrevYear Report Completed
+                                                </td>
+                                                @if (Model.PreviousYearRequired)
+                                                {
+                                                    if (Model.PreviousYearCompleted == true)
+                                                    {
+                                                        <td style="font-size: 15px; color: green;">
+                                                            Yes
+                                                        </td>
+                                                        <td style="width: 35%;">
+                                                            <span style="text-align: center; font-size: 14px; color: green;">Thank you</span>
+                                                            <input type="submit" class="btn btn-success" style="width: 175px; font-size: small; font-weight: bold;" id="btnPrevYearPr" value="View/Print  @Model.PrevYear Report" />
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="font-size: 15px; color: red;">
+                                                            No
+                                                        </td>
+                                                        <td style="width: 35%;">
+                                                            <input type="submit" class="btn btn-warning" style="width: 175px; font-size: small; font-weight: bold;" id="btnPrevYearFl" value="Complete  @Model.PrevYear Report" />
+                                                        </td>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <td style="font-size: 15px; color: navy;">
+                                                        <span style="text-align: center; font-size: 14px; color: navy;">N/A</span>
+                                                    </td>
+                                                    <td style="width: 35%;">
+                                                        <span style="text-align: center; font-size: 14px; color: blue;">Report Not Required</span>
+                                                    </td>
+                                                }
+
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td style="font-size: 15px;">
+                                                    @Model.CurrYear Report Completed
+                                                </td>
+                                                @if (Model.CurrentYearRequired)
+                                                {
+                                                    if (Model.CurrentYearCompleted == true)
+                                                    {
+                                                        <td style="font-size: 15px; color: green;">
+                                                            Yes
+                                                        </td>
+                                                        <td style="width: 35%;">
+                                                            <span style="text-align: center; font-size: 14px; color: green;">Thank you</span>
+                                                            <input type="submit" class="btn btn-success" style="width: 175px; font-size: small; font-weight: bold;" id="btnCurrYearPr" value="View/Print  @Model.CurrYear Report" />
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="font-size: 15px; color: red;">
+                                                            No
+                                                        </td>
+                                                        <td style="width: 35%;">
+                                                            <input type="submit" class="btn btn-warning" style="width: 175px; font-size: small; font-weight: bold;" id="btnCurrYearFl" value="Complete  @Model.CurrYear Report" />
+                                                        </td>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <td style="font-size: 15px; color: navy;">
+                                                        <span style="text-align: center; font-size: 14px; color: navy;">N/A</span>
+                                                    </td>
+                                                    <td style="width: 35%;">
+                                                        <span style="text-align: center; font-size: 14px; color: blue;">Report Not Required</span>
+                                                    </td>
+                                                }
+                                            </tr>
+                                        </table>
+                                    }
+                                    else
+                                    {
+                                    <div style="height: 100px; width: 90%; text-align: center; border: 1px solid; border-radius: 5px; margin: 0 auto;">
+                                        <p>
+                                            <h3 style="color: red;">Your entity is not eligible to participate. Please contact <a href="mailto:dca.research@dca.ga.gov">dca.research@dca.ga.gov</a></h3>
+                                        </p>
+                                    </div>
+                                    }
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="col-md-4" style="font-size: 15px; font-weight: bold; margin-left: 390px; clear: right;">
+                                @*<input type="button" class="btn btn-primary" style="width: 130px; font-weight: bold;" value="Log Out" onclick="location.href='@Url.Action("LogOff", "Hm")'" />*@
+                                <button type="button" class="btn btn-primary" style="font-weight: bold; width: 130px;" value="Log Out" onclick="location.href='@Url.Action("LogOff", "Hm")'">
+                                    <span class="glyphicon glyphicon-log-out"></span>&nbsp;Log Out
+                                </button>
+                            </div>
+                            <div style="text-align: center; clear: both; margin-top: 25px;">
+                                <p style="text-align: center; font-weight: bold; font-size: 15px;">Questions? Contact <a href="mailto:DCA.Research@dca.ga.gov">DCA.Research@dca.ga.gov</a></p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <p>
+                    <input type="hidden" id="hidPrevYear2" name="hidPrevYear2" value=@Model.PrevYear2 />
+                    <input type="hidden" id="hidPrevYear" name="hidPrevYear" value=@Model.PrevYear />
+                    <input type="hidden" id="hidCurrYear" name="hidCurrYear" value=@Model.CurrYear />
+                    <input type="hidden" id="hidSurveyYear" name="hidsurveyyear" />
+                </p>
+            }
+        </section>
+    </div>
+</div>
+@Scripts.Render("~/bundles/jquery")
+<script type="text/javascript" src="~/Scripts/HMApp.js"></script>

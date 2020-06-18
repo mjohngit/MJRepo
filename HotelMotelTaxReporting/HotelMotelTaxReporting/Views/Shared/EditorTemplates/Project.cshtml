@@ -1,0 +1,15 @@
+﻿@model HotelMotel.Business.Models.Project
+
+
+<tr>
+    <td style="font-weight: normal; font-size: 12px;">
+        @Html.HiddenFor(m => m.ProjectId)
+        @Html.TextAreaFor(m => m.ProjectDescription, new { style = "font-weight:lighter; width: 525px;", @rows = 3, @maxlength = 500 })
+    </td>
+    <td><br/>
+        <span>
+            @Html.DropDownListFor(m => m.ProjectStatus, new SelectList(ViewBag.cmbStatuses, "ProjStatus", "ProjStatus"))<br />
+            @Html.ValidationMessageFor(m => m.ProjectStatus)
+        </span>
+    </td>
+</tr>

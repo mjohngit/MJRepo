@@ -1,0 +1,31 @@
+﻿@using System.Web.UI.WebControls
+@model HotelMotel.Business.Models.Pcis
+<tr>
+    <td>
+        <br />
+        <div style="border: 1px solid slategrey; border-radius: 4px;">
+            <div class="form-group" style="padding: 5px 2px 0 7px;">
+                @Html.HiddenFor(m => m.PcisId)
+                @Html.Label("PAID TO ENTITY NAME", new { style = "font-weight: bold; font-size: 11px;" })<br />
+                @Html.TextBoxFor(m => m.Entity, new { style = "font-weight:lighter; width: 610px;", @maxlength = 200 })<p />
+                @Html.ValidationMessageFor(m => m.Entity)
+            </div>
+            <div class="form-group" style="padding-left: 5px;">
+                @Html.HiddenFor(m => m.PcisId)
+                @Html.Label("RE:  EVENT OR PROJECT NAME", new { style = "font-weight: bold; font-size: 11px;" })<br />
+                @Html.TextBoxFor(m => m.EntityProject, new { style = "font-weight:lighter; width: 610px;", @maxlength = 200 })<p />
+                @Html.ValidationMessageFor(m => m.EntityProject)
+            </div>
+            <div class="form-group" style="padding-left: 5px;">
+                @Html.Label("DESCRIPTION OF PROMOTION ITEM(S)", new { style = "font-weight: bold; font-size: 11px;" })<br />
+                @Html.TextAreaFor(m => m.PromotionItems, new { style = "font-weight:lighter; width: 610px;", @rows = 3, @maxlength = 500 })<p />
+                @Html.ValidationMessageFor(m => m.PromotionItems)
+            </div>
+            <div class="form-group" style="padding-left: 5px;">
+                @Html.Label("EXPENDITURE AMOUNT", new { style = "font-weight: bold; font-size: 11px;" })<br />
+                <span style="font-weight: bolder; color: navy;">$    </span>@Html.TextBoxFor(m => m.ExpenditureAmount, new { style = "font-weight: bolder; width: 75px; text-align: right;", @class = "numbersOnly" })
+                @Html.ValidationMessageFor(m => m.ExpenditureAmount)
+            </div>
+        </div><br />
+    </td>
+</tr>

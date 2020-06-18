@@ -1,0 +1,156 @@
+﻿@model Certification
+@{
+    ViewBag.Title = "Certification";
+}
+<p></p>
+<div class="row" style="margin-bottom: 20px;">
+    <div style="width: 600px; margin: 2px 0 30px 170px; text-align: justify;">
+        <section id="FormI">
+            @using (Html.BeginForm("Certification", "hm", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="container">
+                    <div style="border: 1px solid; width: 700px;">
+                        <div class="text-center">
+                            <h2 style="text-decoration: underline; color: #E87D3B; text-align: center;"> Hotel-Motel Tax Report System</h2>
+                            <p>
+                                <h4>@Session["LoggedCityName"] (@Session["LoginId"])</h4>
+                            </p>
+                        </div> <hr />
+                        <div class="well" style="width: 650px; margin: 0 auto; margin-top: -5px;">
+                            <div style="color: maroon; padding-top: -20px; width: 595px; margin: 0 auto;">
+                                <div style="margin: 0 auto; text-align: center; border: #369 1px solid; height: 40px;">@{ Html.RenderPartial("Partials/_Menu"); }</div>
+                                <div style="font-size: 20px; text-align: center; padding-top: 10px;">Section IV: Report Certification  - @ViewBag.sYear</div><p></p>
+                                <div style="font-size: 12px; width: 565px; text-align: justify;">
+                                    This is to certify that, to the best of my knowledge, the information provided herein accurately represents the revenues and expenditures of Hotel-Motel Taxes collected and expended in accordance with the requirements specified in the specific authorization paragraph of O.C.G.A.48-13-51 adopted by this local government for imposing the tax.
+                                    <p></p>
+                                    <p>
+                                        <div style="width: 60%; border: 1px solid steelblue; -ms-border-radius: 5px; border-radius: 5px; margin: 0 auto; padding: 4px; text-align: center;">
+                                            <span style="font-size: 15px; font-weight: bold; color: green">All sections have been completed. Report has been submitted to DCA on <u>@Convert.ToString(string.Format("{0:MM/dd/yyyy}", Model.DateCertified))</u>.</span>
+                                        </div><br />
+                                        <div style="text-align: left;" class="form-horizontal span6">
+                                            <fieldset>
+                                                <!-- Form Name -->
+                                                <legend style="color: navy; font-size: 15px; text-decoration: underline;">CEO Details</legend>
+
+                                                <!-- Text input-->
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Name of Chief Elected Official:</label>
+                                                    <div class="col-md-6 form-control-static" style="font-size: 14px;">
+                                                        @Html.DisplayFor(x => x.CeoName)
+                                                    </div>
+                                                </div>
+
+                                                <!-- Text input-->
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Title of Chief Elected Official:</label>
+                                                    <div class="col-md-6 form-control-static" style="font-size: 14px;">
+                                                        @Html.DisplayFor(x => x.CeoTitle)
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <div style="height: 15px;"></div>
+                                            <fieldset>
+                                                <!-- Form Name -->
+                                                <legend style="color: navy; font-size: 15px; text-decoration: underline;">Details of person completing this report</legend>
+
+                                                <!-- Text input-->
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Name of person completing this report:</label>
+                                                    <div class="col-md-6 form-control-static" style="font-size: 14px;">
+                                                        @Html.DisplayFor(x => x.PreparerName)
+                                                    </div>
+                                                </div>
+
+                                                <!-- Text input-->
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Title of  person completing this report:</label>
+                                                    <div class="col-md-6 form-control-static" style="font-size: 14px;">
+                                                        @Html.DisplayFor(x => x.PreparerTitle)
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Email:</label>
+                                                    <div class="col-md-6 form-control-static" style="font-size: 14px;">
+                                                        @Html.DisplayFor(x => x.PreparerEmail)
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Telephone Number:</label>
+                                                    <div class="col-md-4 form-control-static" style="font-size: 14px;">
+                                                        @Html.DisplayFor(x => x.PreparerPhone)
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Date of report:</label>
+                                                    <div class="col-md-4 form-control-static" style="font-size: 14px;">
+                                                        @Html.DisplayFor(x => x.DateCertified)
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                </div>
+                                <div style="font-size: 12px; width: 565px; text-align: justify;">
+                                    Further, we have provided as an integral part of this report an accounting of the Hotel-Motel Tax revenues expended for the purpose of promoting tourism, conventions, and trade shows or any other related purpose on the Project Contractor Information Schedule (PCIS) in Part III or its attachment.
+                                </div>
+                                <div style="height: 15px;"></div>
+                                <div style="text-align: left;" class="form-horizontal">
+                                    <fieldset>
+                                        <!-- Form Name -->
+                                        <legend style="color: navy; font-size: 15px; text-decoration: underline;">Details of person providing figures for the PCIS figures</legend>
+
+                                        <!-- Text input-->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Name of person providing figures for the PCIS:</label>
+                                            <div class="col-md-6 form-control-static" style="font-size: 14px;">
+                                                @Html.DisplayFor(x => x.PcisProviderName)
+                                            </div>
+                                        </div>
+
+                                        <!-- Text input-->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Title of Person providing PCIS figures:</label>
+                                            <div class="col-md-6 form-control-static" style="font-size: 14px;">
+                                                @Html.DisplayFor(x => x.PcisProviderTitle)
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Email:</label>
+                                            <div class="col-md-6 form-control-static" style="font-size: 14px;">
+                                                @Html.DisplayFor(x => x.PcisProviderEmail)
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Telephone Number:</label>
+                                            <div class="col-md-4 form-control-static" style="font-size: 14px;">
+                                                @Html.DisplayFor(x => x.PcisProviderPhone)
+                                            </div>
+                                        </div>
+                                        <div style="height: 15px;"></div>
+                                        <div style="width: 90%">
+                                            <span style="float: left">
+                                                @*<input type="button" class="btn btn-info" style="width: 130px; font-weight: bold;" value="Main Menu" id="btnMainmenu" onclick="location.href='@Url.Action("Mainmenu", "Hm")'" />*@
+                                                <button type="button" class="btn btn-info" style="font-weight: bold;" value="Main Menu" onclick="location.href='@Url.Action("Mainmenu", "Hm")'">
+                                                    <span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Main Menu
+                                                </button>
+                                            </span>
+                                            <span style="float: right">
+                                                @*<input type="button" class="btn btn-info" style="width: 240px; font-weight: bold;" value="Print Certification" id="btnFormPrint" name="btnFormPrint" onclick="window.print();" />*@
+                                                <button type="button" class="btn btn-info span2 input-large" style="font-weight: bold;" id="btnSubmit" name="btnSubmit" value="Print Certification" onclick="window.print();">
+                                                    <span class="glyphicon glyphicon-print"></span>&nbsp;&nbsp;Print Certification
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <p></p><br />
+                    </div>
+                    <div style="height: 7px;"></div>
+                </div>
+            }
+        </section>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+﻿
+<section>
+    <div id="navcontainer">
+        <ul>
+            <li>
+                a
+                @if (ViewBag.ActName == "Form1")
+                {
+                    <text>Section 1</text>
+                }
+                else
+                {
+                    <a href="~/hm/Form1">Section I</a>
+                }
+            </li>
+            <li>
+                @if (ViewBag.ActName == "Form2")
+                {
+                    <text>Section 2</text>
+                }
+                else
+                {
+                    <a href="~/hm/Form2">Section II</a>
+                }
+            </li>
+            <li>
+                @if (ViewBag.ActName == "Form3")
+                {
+                    <text>Section III</text>
+                }
+                else
+                {
+                    <a href="~/hm/Form3">Section III</a>
+                }
+            </li>
+            <li>
+                @if (ViewBag.ActName == "Certification")
+                {
+                    <text>Section IV</text>
+                }
+                else
+                {
+                    <a href="~/hm/Certification">Section IV</a>
+                }
+            </li>
+            <li>
+                 Log Off
+            </li>
+        </ul>
+    </div>
+</section>

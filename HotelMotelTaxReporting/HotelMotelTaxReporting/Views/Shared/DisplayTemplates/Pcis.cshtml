@@ -1,0 +1,25 @@
+﻿@using System.Web.UI.WebControls
+@model HotelMotel.Business.Models.Pcis
+<tr>
+    <td>
+        <br />
+        <div style="border: 1px solid steelblue; border-radius: 4px;">
+            <div class="form-group" style="padding: 5px 2px 0 7px;">
+                @Html.Label("PAID TO ENTITY NAME", new { style = "font-weight: bold; font-size: 11px; text-decoration: underline;" })<br />
+                @Html.DisplayFor(m => m.Entity)<p />
+            </div>
+            <div class="form-group" style="padding-left: 5px;">
+                @Html.Label("RE:  EVENT OR PROJECT NAME", new { style = "font-weight: bold; font-size: 11px; text-decoration: underline;" })<br />
+                @Html.DisplayFor(m => m.EntityProject)<p />
+            </div>
+            <div class="form-group" style="padding-left: 5px;">
+                @Html.Label("DESCRIPTION OF PROMOTION ITEM(S)", new { style = "font-weight: bold; font-size: 11px; text-decoration: underline;" })<br />
+                @Html.DisplayFor(m => m.PromotionItems)<p />
+            </div>
+            <div class="form-group" style="padding-left: 5px;">
+                @Html.Label("EXPENDITURE AMOUNT")<br />
+                @Html.DisplayFor(m => m.ExpenditureAmount, new { style = "font-weight: bolder; color: navy; width: 75px; text-align: right;", @class = "numbersOnly" })
+            </div>
+        </div><br />
+    </td>
+</tr>

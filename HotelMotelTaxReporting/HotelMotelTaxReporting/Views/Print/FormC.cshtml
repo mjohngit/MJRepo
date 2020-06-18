@@ -1,0 +1,78 @@
+﻿@model HotelMotel.Business.ViewModels.FormCViewmodel
+
+@{
+    ViewBag.Title = "Form 3";
+}
+
+<p></p>
+<div class="row" style="margin-bottom: 20px;">
+    <div style="width: 600px; margin: 2px 0 30px 170px; text-align: justify;">
+        <section id="FormI">
+            @using (@Html.BeginForm("Form3", "hm", FormMethod.Post))
+            {
+                @* @using (Ajax.BeginForm("Form2", "hm", null, FormMethod.Post)) {*@
+                @Html.AntiForgeryToken()
+
+                <div class="container">
+                    <div style="border: 1px solid; width: 750px;">
+                        <div class="text-center">
+                            <h2 style="text-decoration: underline; color: #E87D3B; text-align: center;"> Hotel-Motel Tax Report System</h2>
+                            <p>
+                                <h4>@Session["LoggedCityName"] (@Session["LoginId"])</h4>
+                            </p>
+                        </div> <hr />
+                        <div class="well" id="divProjContractor" style="width: 700px; margin: 0 auto; margin-top: -5px; margin-bottom: 10px;">
+                            <div style="color: maroon; padding-top: -20px; width: 660px; margin: 0 auto;">
+                                <div style="margin: 0 auto; text-align: center; border: #369 1px solid; height: 40px;">@{Html.RenderPartial("Partials/_Menu");}</div>
+                                <div style="font-size: 20px; text-align: center; padding-top: 10px;">
+                                    Section III: Project Contractor Information Schedule <br />
+                                    <span style="font-size: 17px; font-weight: bold;">And Tourism Product Development List (if 51(b))</span> - @ViewBag.sYear
+                                </div><p></p>
+
+
+                                <div style="margin-top: 20px; width: 98%;">
+                                    <div id="divPcis">
+                                        @{Html.RenderPartial("Partials/Print/_Pcisprint", Model);}
+                                    </div>
+                                    <hr />
+                                    <div id="divProjects">
+                                        @*@Html.Partial("Partials/_ContractDmo", Model);*@
+                                        @{Html.RenderPartial("Partials/Print/_Projectsprint", Model);}
+                                        @*@Html.EditorFor(x => x.DmoResultses)*@
+                                    </div>
+                                    <div style="height: 30px;"></div>
+
+                                    <table>
+                                        <tr>
+                                            <td style="width: 50%" nowrap="nowrap">
+                                                @*@Html.HtmlLink("Mainmenu", "Main Menu", new { style = "font-size: 18px; color: green; margin-left: 5px;" })*@
+                                                <input type="button" class="btn btn-info" style="width: 130px; font-weight: bold;" id="btnMainmenu" value="Main Menu" onclick="location.href='@Url.Action("Mainmenu", "Hm")'" />
+                                            </td>
+                                            <td style="width: 23%" nowrap="nowrap">
+                                                @*<input type="button" class="btn btn-primary" style="width: 130px; font-weight: bold;" value="Log Out" onclick="location.href='@Url.Action("LogOff", "Hm")'" />*@
+                                            </td>
+
+                                            <td style="width: 25%" nowrap="nowrap">
+                                                <input type="button" class="btn btn-info" style="width: 130px; font-weight: bold;" title="Section III" value="Print Section III" id="btnFormPrint" name="btnFormPrint" onclick="window.print()" />
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="text-align: center; font-weight: bold; font-size: 15px;">
+                                                <br /> If you have questions, send an email to:  <a href="mailto:Research@dca.ga.gov" style="color: green">research@dca.ga.gov</a>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height: 7px;">
+                            @Html.Hidden("hidCertificationComplete", Session["CertificationComplete"])
+                        </div>
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>

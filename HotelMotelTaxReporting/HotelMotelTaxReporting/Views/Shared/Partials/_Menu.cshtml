@@ -1,0 +1,81 @@
+﻿
+<section>
+    <div id="navcontainer">
+        <ul>
+            <li>
+                @if (ViewBag.ActName == "Form1")
+                {
+                    <text>Section I</text>
+                }
+                else
+                {
+                    <a href="~/hm/Form1">Section I</a>
+                }
+            </li>
+            <li>
+                @if (ViewBag.ActName == "Form2")
+                {
+                    <text>Section II</text>
+                }
+                else
+                {
+                    if (Convert.ToBoolean(Session["OrdinanceCorrect"]))
+                    {
+                        <a href="~/hm/Form2">Section II</a>
+                    }
+                    else
+                    {
+                        @*<a href="javascript:void(0)" onclick="alert('Cannot proceed without saving Section I');">Section II</a>*@
+                        <a data-toggle="popover" title="Hotel-Motel Tax Reporting - @Session["TaxYear"]" data-content="Cannot proceed to Section II without saving Section I" tabindex="0">Section II</a>
+                    }
+
+                }
+            </li>
+            <li>
+                @if (ViewBag.ActName == "Form3")
+                {
+                    <text>Section III</text>
+                }
+                else
+                {
+                    if (Convert.ToBoolean(Session["OrdinanceCorrect"]))
+                    {
+                        <a href="~/hm/Form3">Section III</a>
+                    }
+                    else
+                    {
+                        <a data-toggle="popover" title="Hotel-Motel Tax Reporting - @Session["TaxYear"]" data-content="Cannot proceed to Section III without saving Section I" tabindex="0">Section III</a>
+                    }
+
+                }
+            </li>
+            <li>
+                @if (ViewBag.ActName == "Certification")
+                {
+                    <text>Section IV</text>
+                }
+                else
+                {
+                    if (Convert.ToBoolean(Session["OrdinanceCorrect"]))
+                    {
+                        if (!Convert.ToBoolean(Session["P2Complete"]) || (!Convert.ToBoolean(Session["P3Complete"])))
+                        {
+                            <a data-toggle="popover" title="Hotel-Motel Tax Reporting - @Session["TaxYear"]" data-content="Can certify only after saving Sections II and III" tabindex="0">Section IV</a>
+                        }
+                        else
+                        {
+                            <a href="~/hm/Certification">Section IV</a>
+                        }
+                    }
+                    else
+                    {
+                        <a data-toggle="popover" title="Hotel-Motel Tax Reporting - @Session["TaxYear"]" data-content="Cannot proceed to Certification without saving Section I" tabindex="0">Section IV</a>
+                    }
+                }
+            </li>
+            <li>
+                <a href="~/hm/Logoff">Log Off</a>
+            </li>
+        </ul>
+    </div>
+</section>

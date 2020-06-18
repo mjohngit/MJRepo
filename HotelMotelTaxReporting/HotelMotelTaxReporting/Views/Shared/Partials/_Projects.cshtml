@@ -1,0 +1,32 @@
+﻿@model HotelMotel.Business.ViewModels.FormCViewmodel
+
+<div style="font-size: 15px; font-weight: bold; text-align: center; color: navy; width:650px; text-align: justify;">
+    If you impose the tax under Authorization 49-13-51(b) and have expended or reserved funds for a Tourism Product Development Project, list the name of that Project.
+    <p style="font-size: 14px;">
+       </p>
+</div>
+<table class="table table-bordered table-striped">
+    @if (!Convert.ToBoolean(Session["CertificationComplete"])) 
+    {
+        @Html.EditorFor(x => x.Projects)
+        <tr>
+            <td style="width: 70%; text-align: right;" colspan="4" nowrap="nowrap">
+                @*<span style="float: left;"><input type="Submit" class="btn btn-info" style="width: 110px; font-weight: bold;" id="btnAddDmoContract" name="btnAddDmoContract" value="Add new row " /></span>*@
+                <span style="float: left; text-align: center; width: 110px; font-size: 15px; font-weight: bold; border: 1px solid blueviolet;">
+                    @Ajax.ActionLink("Add new rows", "_AddPartialNewProjects",
+                        new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "divProjects"
+                        })
+
+                </span>
+            </td>
+        </tr>
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.Projects)
+    }
+</table>

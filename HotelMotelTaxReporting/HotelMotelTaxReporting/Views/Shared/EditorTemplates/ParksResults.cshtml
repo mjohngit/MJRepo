@@ -1,0 +1,7 @@
+﻿@model ParksResults
+
+ <div style="padding-bottom: 5px;">
+    @Html.HiddenFor(m => Model.ParksContractId)
+    @Html.TextBoxFor(m => Model.ParksEntity, new { style = "width: 520px;" })<p />
+    @Html.ValidationMessageFor(m => Model.ParksEntity)
+ </div>

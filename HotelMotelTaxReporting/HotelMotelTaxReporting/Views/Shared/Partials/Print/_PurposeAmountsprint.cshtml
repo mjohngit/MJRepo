@@ -1,0 +1,22 @@
+﻿@model HotelMotel.Business.ViewModels.FormBViewmodel
+
+@using (Ajax.BeginForm("SavePartialPurposeAmounts", "hm", new AjaxOptions { HttpMethod = "POST" }))
+{
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th style="width: 80%; font-size: 15px; text-align: center; color: navy; background-color: #FAEDD1;"> Purpose</th>
+            <th style="width: 19%; font-size: 15px; text-align: center; color: navy; background-color: #DCE7A2;"> Amount</th>
+        </tr>
+
+        <tr>
+            @Html.DisplayFor(x => x.PurposeAmountResults)
+        </tr>
+
+        <tr>
+            <td style="width: 45%; text-align: right;" colspan="2" nowrap="nowrap">
+                <span style="text-align: left;"></span>
+                @*<input type="Submit" class="btn btn-info" style="width: 155px; font-size: 12px; font-weight: bold; height: 27px;" id="btnSavePurposeAmts" name="btnSavePurposeAmts" value="Save Purpose Amounts" />*@
+            </td>
+        </tr>
+    </table>
+}

@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C2991388-3AF9-40BD-8558-7177879001EC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HotelMotel.Data</RootNamespace>
+    <AssemblyName>HotelMotel.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net40\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CheckCertificationsDashboard.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FetchPcisList.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FetchProjectList.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FetchProjectStatusList.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FetchPurposeAmts.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetCertification.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetDMOContracts.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOrdinance.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetParkContracts.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HMModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HMModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HMModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="HMT_Certifications.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HMT_PCIS_Docs.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LoginModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoginModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LoginModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoginModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LoginModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoginModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="pr_CheckCompletedYears1_Result.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_CheckCompletedYears1_Result1.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_CheckCompletedYears_Result.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_CheckCompletedYears_Result1.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_CheckCompletedYears_Result2.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_CheckCompletedYears_Result3.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_CheckCompletedYears_StaticForTest_Result.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_CheckLoginLocalGov_Result.cs">
+      <DependentUpon>LoginModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_Fill_PA_Result.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_GetOrdinance_Result.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_GetOrdinance_Result1.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_GetOrdinance_Result2.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_Get_Certification_Result.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_Get_Contracts_DMO_Result.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_Get_Contracts_Park_Result.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_Get_Facilities_Result.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_Get_PA_Result.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_Get_PCIS_Result.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_Get_Projects_Result.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_Get_PurposeAmts_Result.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateDMOContracts.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateParksContracts.cs">
+      <DependentUpon>HMModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="LoginModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LoginModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="HMModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HMModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="HMModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HMModel.edmx</DependentUpon>
+      <LastGenOutput>HMModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="HMModel.edmx.diagram">
+      <DependentUpon>HMModel.edmx</DependentUpon>
+    </None>
+    <None Include="HMModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HMModel.edmx</DependentUpon>
+      <LastGenOutput>HMModel.cs</LastGenOutput>
+    </None>
+    <None Include="LoginModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LoginModel.edmx</DependentUpon>
+      <LastGenOutput>LoginModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="LoginModel.edmx.diagram">
+      <DependentUpon>LoginModel.edmx</DependentUpon>
+    </None>
+    <None Include="LoginModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LoginModel.edmx</DependentUpon>
+      <LastGenOutput>LoginModel.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

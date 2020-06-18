@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelMotelTaxReporting", "HotelMotelTaxReporting\HotelMotelTaxReporting.csproj", "{FE45D84C-3CAB-499E-9AEF-699FFCCDB4DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelMotelTaxReporting.Tests", "HotelMotelTaxReporting.Tests\HotelMotelTaxReporting.Tests.csproj", "{508CD0B3-7A29-4CA9-88FF-2E741DFDA1A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelMotel.Business", "HotelMotel.Business\HotelMotel.Business.csproj", "{D827BF0E-ED6C-49EA-99A3-A9F150F7CD42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelMotel.Data", "HotelMotel.Data\HotelMotel.Data.csproj", "{C2991388-3AF9-40BD-8558-7177879001EC}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://emjay.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = HotelMotel.Business\\HotelMotel.Business.csproj
+		SccProjectName1 = HotelMotel.Business
+		SccLocalPath1 = HotelMotel.Business
+		SccProjectUniqueName2 = HotelMotel.Data\\HotelMotel.Data.csproj
+		SccProjectName2 = HotelMotel.Data
+		SccLocalPath2 = HotelMotel.Data
+		SccProjectUniqueName3 = HotelMotelTaxReporting.Tests\\HotelMotelTaxReporting.Tests.csproj
+		SccProjectName3 = HotelMotelTaxReporting.Tests
+		SccLocalPath3 = HotelMotelTaxReporting.Tests
+		SccProjectUniqueName4 = HotelMotelTaxReporting\\HotelMotelTaxReporting.csproj
+		SccProjectName4 = HotelMotelTaxReporting
+		SccLocalPath4 = HotelMotelTaxReporting
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE45D84C-3CAB-499E-9AEF-699FFCCDB4DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE45D84C-3CAB-499E-9AEF-699FFCCDB4DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE45D84C-3CAB-499E-9AEF-699FFCCDB4DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE45D84C-3CAB-499E-9AEF-699FFCCDB4DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{508CD0B3-7A29-4CA9-88FF-2E741DFDA1A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{508CD0B3-7A29-4CA9-88FF-2E741DFDA1A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{508CD0B3-7A29-4CA9-88FF-2E741DFDA1A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{508CD0B3-7A29-4CA9-88FF-2E741DFDA1A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D827BF0E-ED6C-49EA-99A3-A9F150F7CD42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D827BF0E-ED6C-49EA-99A3-A9F150F7CD42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D827BF0E-ED6C-49EA-99A3-A9F150F7CD42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D827BF0E-ED6C-49EA-99A3-A9F150F7CD42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2991388-3AF9-40BD-8558-7177879001EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2991388-3AF9-40BD-8558-7177879001EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2991388-3AF9-40BD-8558-7177879001EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2991388-3AF9-40BD-8558-7177879001EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

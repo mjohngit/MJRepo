@@ -1,0 +1,12 @@
+﻿@model  PurposeAmount
+<tr>
+    <td style="font-weight: normal; font-size: 12px;">
+        @Html.HiddenFor(m => m.PCode)
+        @Html.HiddenFor(m => m.PPurpose)
+        @Html.DisplayFor(m => m.PPurpose)
+    </td>
+    <td>
+        @Html.TextBoxFor(m => m.PAmount, new { style = "font-weight: bold; width: 75px; text-align: right;", @class = "numbersOnly" })<br />
+        @Html.ValidationMessageFor(m => m.PAmount)
+    </td>
+</tr>

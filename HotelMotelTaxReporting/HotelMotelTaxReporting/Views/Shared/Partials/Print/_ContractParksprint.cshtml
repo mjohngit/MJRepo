@@ -1,0 +1,22 @@
+﻿@model HotelMotel.Business.ViewModels.FormBViewmodel
+
+
+<div style="font-size: 12px; width: 525px; text-align: justify;">
+    If you collected and expended amounts related to a State Park this report year, enter the full name of the State Park below:
+
+    <p style="font-size: 14px; font-weight: bolder; color: crimson;">
+
+    </p>
+</div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 80%; font-size: 15px; text-align: center; color: navy; background-color: #FAEDD1;"> Name of the State Park</th>
+        </tr>
+    </thead>
+    <tbody>
+            @Html.DisplayFor(m => m.ParkResultses)
+    </tbody>
+
+</table>
+

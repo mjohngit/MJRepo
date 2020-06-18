@@ -1,0 +1,168 @@
+﻿@model HotelMotel.Business.Models.Mainmenu
+@{
+    ViewBag.Title = "Main Menu";
+}
+<p></p>
+<div class="row" style="margin-bottom: 20px;">
+    <div style="width: 600px; margin: 2px 0 30px 170px; text-align: justify;">
+        <section id="Mainmenu">
+            @using (Html.BeginForm("Mainmenu", "hm", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="container">
+                    <div style="border: 1px solid; width: 700px;">
+                        <div class="text-center">
+                            <h2 style="text-decoration: underline; color: #E87D3B; text-align: center;"> Hotel-Motel Tax Report System</h2>
+                            <p>
+                                <h4>@Session["LoggedCityName"] (@Session["LoginId"])</h4>
+                            </p>
+                        </div> <hr />
+                        <div class="well" style="width: 650px; height: 450px; margin: 0 auto; margin-top: -5px; position: relative">
+                            <div style="color: maroon; padding-top: -20px; width: 525px; margin: 0 auto;">
+                                <div style="font-size: 20px; text-align: center;">Main Menu - @ViewBag.sYear</div>
+                                <div style="font-size: 12px; width: 525px; text-align: justify;">
+                                    You can log out after completing any section (with exception of the Certification
+                                    section) and return at a later time to complete or modify the other sections. <strong>
+                                        Please note that
+                                        if you do not save each report section, you will not be able to "Submit" the responses of the Certification
+                                        page.
+                                    </strong> Also in Section IV, you must provide a working email address to receive a confirmation
+                                    email that DCA has received your report responses.
+                                    <p style="font-size: 14px; font-weight: bolder">
+                                        All of the sections must be completed before the report can be submitted
+                                    </p>
+                                </div>
+                            </div>
+                            @if (Model != null && !String.IsNullOrEmpty(Model.AtCode))
+                            {
+                                <table class="table table-bordered table-striped" style="background-color: #fff; width: 525px; margin: 0 auto;">
+                                    <tr>
+                                        <td class="tbltd1mm">
+                                            @if (!Model.P1Complete || Model.OrdinanceCorrect)
+                                            {
+                                                if (Model.P1Complete && Model.OrdinanceCorrect)
+                                                {
+                                                    <img src="@Url.Content("~/Images/signout.png")" alt="Success" />
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <img src="@Url.Content("~/Images/warning.png")" alt="Ordinance not correct" />
+                                            }
+                                        </td>
+                                        <td class="tbltd2mm">@Html.HtmlLink("Form1", "Section I", "")</td>
+                                        <td class="tbltd3mm">Tax Authorization Verification</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbltd1mm">
+                                            @if (Model.P2Complete)
+                                            {
+                                                <img src="@Url.Content("~/Images/signout.png")" alt="Success" />
+                                            }
+                                        </td>
+
+                                        <td class="tbltd2mm">
+                                            @if (Convert.ToBoolean(Session["OrdinanceCorrect"]))
+                                            {
+                                                @Html.HtmlLink("Form2", "Section II", "")
+                                                ;
+                                            }
+                                            else
+                                            {
+                                                <text>Section II</text>
+                                            }
+                                        </td>
+                                        <td class="tbltd3mm">Tax Revenues and Expenditures</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbltd1mm">
+                                        @if (Model.P3Complete)
+                                        {
+                                            <img src="@Url.Content("~/Images/signout.png")" alt="Success" />
+                                        }
+                                        <td class="tbltd2mm">
+                                            @if (Convert.ToBoolean(Session["OrdinanceCorrect"]))
+                                            {
+                                                @Html.HtmlLink("Form3", "Section III", "")
+                                                ;
+                                            }
+                                            else
+                                            {
+                                                <text>Section III</text>
+                                            }
+                                        </td>
+                                        <td class="tbltd3mm">Project Contractor Information Schedule (PCIS Form)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbltd1mm">
+                                            @if (Model.CertificationComplete)
+                                            {
+                                                <img src="@Url.Content("~/Images/signout.png")" alt="Success" />
+                                            }
+                                        </td>
+                                        <td class="tbltd2mm">
+                                            @if (Convert.ToBoolean(Session["OrdinanceCorrect"]))
+                                            {
+                                                if (Model.P2Complete && Model.P3Complete)
+                                                {
+                                                    @Html.HtmlLink("Certification", "Section IV", "")
+                                                    ;
+                                                }
+                                                else
+                                                {
+                                                    <text>Section IV</text>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <text>Section IV</text>
+                                            }
+                                        </td>
+                                        <td class="tbltd3mm">Certification</td>
+                                    </tr>
+                                </table>
+                            }
+                            else
+                            {
+                                <div style="height: 120px; width: 90%; text-align: center; border: 1px solid; border-radius: 5px; margin: 0 auto;">
+                                    <p>
+                                        <h4 style="color: red;">There seems to be a problem creating the dashboard <br />
+                                            for your entity in Hotel Motel Tax Reporting Application.</h4>
+                                        <h5>Make sure you use only the navigation links and buttons to access pages</h5>
+                                        <h4>Please contact <a href="mailto:dca.research@dca.ga.gov">dca.research@dca.ga.gov</a></h4> 
+                                    </p>
+                                </div>
+                            }
+                            <div style="margin-top: 20px; margin-left: 40px; font-weight: bold; width: 98%;">
+                                <table>
+                                    <tr>
+                                        <td style="width: 50%">
+                                            @* @Html.HtmlLink("Mainmenu", "Main Menu", new {style="font-size: 18px;"})*@
+                                            @*<input type="button" class="btn btn-info" style="width: 130px; font-weight: bold;" value="Dashboard" onclick="location.href='@Url.Action("Dashboard", "Hm")'" />*@
+                                            <button type="button" class="btn btn-info" style="font-weight: bold; width: 180px;" value="Dashboard" onclick="location.href='@Url.Action("Dashboard", "Hm")'">
+                                                <span class="glyphicon glyphicon-dashboard"></span>&nbsp;Back to Years Menu
+                                            </button>
+                                        </td>
+                                        <td style="width: 25%">
+                                            &nbsp;
+                                        </td>
+                                        <td style="width: 25%">
+                                            @*<input type="button" class="btn btn-primary" style="width: 125px; font-weight: bold;" value="Log Out" onclick="location.href='@Url.Action("LogOff", "Hm")'" />*@
+                                            <button type="button" class="btn btn-primary" style="font-weight: bold; width: 120px; margin-left: 6px;" value="Log Out" onclick="location.href='@Url.Action("LogOff", "Hm")'">
+                                                <span class="glyphicon glyphicon-log-out"></span>&nbsp;Log Out
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="height: 10px;">
+                           
+                        </div>
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>
